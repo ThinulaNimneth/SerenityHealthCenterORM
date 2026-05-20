@@ -123,7 +123,18 @@ public class TherapySessionDAOImpl implements TherapySessionDAO {
         }
     }
 
-
+    @Override
+    public List<TherapySession> findByStatus(TherapySession.SessionStatus status){
+        Session hibernateSession = FactoryConfiguration.getInstance().getSession().openSession();
+        try {
+            String hql = "FROM TherapySession ts WHERE ts.status = :status";
+            Query<TherapySession> query =  hibernateSession.createQuery(hql, TherapySession.class);
+            query.setParameter("status", status);
+            return    query.list();
+        }finally {
+            hibernateSession.close();
+        }
+    }
 
 
 

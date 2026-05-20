@@ -6,6 +6,7 @@ import lk.ijse.serenityhealthcenter.dao.custom.PaymentDAO;
 import lk.ijse.serenityhealthcenter.entity.Payment;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 import java.util.List;
 import java.util.Optional;
@@ -82,8 +83,21 @@ public class PaymentDAOImpl implements PaymentDAO {
         }
     }
 
+    @Override
+    public List<Payment> findByPatient(Long patientId) {
+        Session session = FactoryConfiguration.getInstance().getSession().openSession();
+        try {
+            String hql = "FROM Payment p WHERE p.patient.patientId = :patientId";
+            Query<Payment> query = session.createQuery(hql, Payment.class);
+            query.setParameter("patientId", patientId);
+            return query.list();
+        } finally {
+            session.close();
+        }
+    }
 
 
+    @Override
 
 
 

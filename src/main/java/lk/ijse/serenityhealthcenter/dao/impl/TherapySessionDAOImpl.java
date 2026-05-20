@@ -82,6 +82,25 @@ public class TherapySessionDAOImpl implements TherapySessionDAO {
         }
     }
 
+    @Override
+    public List<TherapySession> findByPatient(Long patientId) {
+        Session hibernateSession = FactoryConfiguration.getInstance().getSession().openSession();
+        try {
+            String hql = "FROM TherapySession ts WHERE ts.patient.patientId = :patientId";
+            Query<TherapySession> query = hibernateSession.createQuery(hql, TherapySession.class);
+            query.setParameter("patientId", patientId);
+            return  query.list();
+        }finally {
+            hibernateSession.close();
+        }
+    }
+
+
+    @Override
+    public List<TherapySession> findByTherapist(Long therapistId) {
+
+    }
+
 
 
 }

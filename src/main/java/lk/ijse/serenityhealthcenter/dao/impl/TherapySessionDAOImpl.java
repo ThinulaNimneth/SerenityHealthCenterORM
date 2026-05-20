@@ -42,6 +42,22 @@ public class TherapySessionDAOImpl implements TherapySessionDAO {
 
 
     @Override
-    public void
+    public void delete(Long id){
+        Session hibernateSession = FactoryConfiguration.getInstance().getSession().openSession();
+        Transaction transaction = hibernateSession.beginTransaction();
+        try {
+            TherapySession session = hibernateSession.get(TherapySession.class, id);
+            if (session != null) hibernateSession.remove(session);
+            transaction.commit();
+        }catch (Exception e){
+            transaction.rollback();
+            throw e;
+        }finally {
+            hibernateSession.close();
+        }
+    }
+
+
+
 
 }

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #ECF0F1;"
+            xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="lk.ijse.serenity.controller.AdminDashboardController">
+
+    <!-- Header -->
+    <HBox layoutX="0" layoutY="0" prefHeight="80.0" prefWidth="900.0"
+          style="-fx-background-color: #2C3E50; -fx-padding: 20;">
+        <Label text="Serenity MHTC - Admin Dashboard" textFill="white">
+            <font><Font name="System Bold" size="24.0" /></font>
+        </Label>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Label fx:id="lblUserName" text="Admin User" textFill="white">
+            <font><Font size="14.0" /></font>
+        </Label>
+        <Button fx:id="btnLogout" text="Logout" style="-fx-background-color: #E74C3C; -fx-text-fill: white;"
+                layoutX="800.0" onAction="#handleLogout"/>
+    </HBox>
+
+    <!-- Main Content Area -->
+    <TabPane layoutX="20.0" layoutY="100.0" prefHeight="480.0" prefWidth="860.0" tabClosingPolicy="UNAVAILABLE">
+
+        <!-- Therapist Management Tab -->
+        <Tab text="Manage Therapists">
+            <AnchorPane>
+                <VBox spacing="15.0" style="-fx-padding: 20;">
+                    <Label text="Therapist Management" style="-fx-font-size: 18; -fx-font-weight: bold;"/>
+
+                    <HBox spacing="10.0">
+                        <TextField fx:id="txtTherapistName" promptText="Therapist Name" prefWidth="200.0"/>
+                        <TextField fx:id="txtTherapistEmail" promptText="Email" prefWidth="200.0"/>
+                        <TextField fx:id="txtTherapistPhone" promptText="Phone" prefWidth="150.0"/>
+                        <TextField fx:id="txtSpecialization" promptText="Specialization" prefWidth="180.0"/>
+                    </HBox>
+
+                    <HBox spacing="10.0">
+                        <TextField fx:id="txtQualification" promptText="Qualification" prefWidth="200.0"/>
+                        <TextField fx:id="txtLicenseNumber" promptText="License Number" prefWidth="150.0"/>
+                        <TextField fx:id="txtYearsExp" promptText="Years Experience" prefWidth="120.0"/>
+                        <CheckBox fx:id="chkAvailable" text="Available" selected="true"/>
+                    </HBox>
+
+                    <HBox spacing="10.0">
+                        <Button fx:id="btnSaveTherapist" text="Save" onAction="#handleSaveTherapist"
+                                style="-fx-background-color: #27AE60; -fx-text-fill: white; -fx-min-width: 100;"/>
+                        <Button fx:id="btnUpdateTherapist" text="Update" onAction="#handleUpdateTherapist"
+                                style="-fx-background-color: #3498DB; -fx-text-fill: white; -fx-min-width: 100;"/>
+                        <Button fx:id="btnDeleteTherapist" text="Delete" onAction="#handleDeleteTherapist"
+                                style="-fx-background-color: #E74C3C; -fx-text-fill: white; -fx-min-width: 100;"/>
+                        <Button fx:id="btnClearTherapist" text="Clear" onAction="#handleClearTherapist"
+                                style="-fx-min-width: 100;"/>
+                    </HBox>
+
+                    <TableView fx:id="tblTherapists" prefHeight="250.0">
+                        <columns>
+                            <TableColumn fx:id="colTherapistId" text="ID" prefWidth="50.0"/>
+                            <TableColumn fx:id="colTherapistName" text="Name" prefWidth="150.0"/>
+                            <TableColumn fx:id="colTherapistEmail" text="Email" prefWidth="180.0"/>
+                            <TableColumn fx:id="colTherapistPhone" text="Phone" prefWidth="120.0"/>
+                            <TableColumn fx:id="colSpecialization" text="Specialization" prefWidth="150.0"/>
+                            <TableColumn fx:id="colAvailable" text="Available" prefWidth="80.0"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+            </AnchorPane>
+        </Tab>
+
+        <!-- Therapy Program Management Tab -->
+        <Tab text="Manage Programs">
+            <AnchorPane>
+                <VBox spacing="15.0" style="-fx-padding: 20;">
+                    <Label text="Therapy Program Management" style="-fx-font-size: 18; -fx-font-weight: bold;"/>
+
+                    <HBox spacing="10.0">
+                        <TextField fx:id="txtProgramId" promptText="Program ID (e.g., MT1006)" prefWidth="150.0"/>
+                        <TextField fx:id="txtProgramName" promptText="Program Name" prefWidth="250.0"/>
+                        <TextField fx:id="txtDuration" promptText="Duration" prefWidth="120.0"/>
+                        <TextField fx:id="txtFee" promptText="Fee (LKR)" prefWidth="120.0"/>
+                    </HBox>
+
+                    <TextArea fx:id="txtDescription" promptText="Program Description" prefHeight="80.0"/>
+
+                    <HBox spacing="10.0">
+                        <Button fx:id="btnSaveProgram" text="Save" onAction="#handleSaveProgram"
+                                style="-fx-background-color: #27AE60; -fx-text-fill: white; -fx-min-width: 100;"/>
+                        <Button fx:id="btnUpdateProgram" text="Update" onAction="#handleUpdateProgram"
+                                style="-fx-background-color: #3498DB; -fx-text-fill: white; -fx-min-width: 100;"/>
+                        <Button fx:id="btnDeleteProgram" text="Delete" onAction="#handleDeleteProgram"
+                                style="-fx-background-color: #E74C3C; -fx-text-fill: white; -fx-min-width: 100;"/>
+                        <Button fx:id="btnClearProgram" text="Clear" onAction="#handleClearProgram"
+                                style="-fx-min-width: 100;"/>
+                    </HBox>
+
+                    <TableView fx:id="tblPrograms" prefHeight="220.0">
+                        <columns>
+                            <TableColumn fx:id="colProgramId" text="Program ID" prefWidth="100.0"/>
+                            <TableColumn fx:id="colProgramName" text="Program Name" prefWidth="250.0"/>
+                            <TableColumn fx:id="colDuration" text="Duration" prefWidth="100.0"/>
+                            <TableColumn fx:id="colFee" text="Fee (LKR)" prefWidth="120.0"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+            </AnchorPane>
+        </Tab>
+
+        <!-- User Management Tab -->
+        <Tab text="Manage Users">
+            <AnchorPane>
+                <VBox spacing="15.0" style="-fx-padding: 20;">
+                    <Label text="User Management" style="-fx-font-size: 18; -fx-font-weight: bold;"/>
+
+                    <HBox spacing="10.0">
+                        <TextField fx:id="txtUsername" promptText="Username" prefWidth="150.0"/>
+                        <PasswordField fx:id="txtNewPassword" promptText="Password" prefWidth="150.0"/>
+                        <TextField fx:id="txtFullName" promptText="Full Name" prefWidth="200.0"/>
+                        <TextField fx:id="txtUserEmail" promptText="Email" prefWidth="200.0"/>
+                        <ComboBox fx:id="cmbRole" promptText="Role" prefWidth="120.0"/>
+                    </HBox>
+
+                    <HBox spacing="10.0">
+                        <Button text="Add User" onAction="#handleAddUser"
+                                style="-fx-background-color: #27AE60; -fx-text-fill: white; -fx-min-width: 100;"/>
+                        <Button text="Change Password" onAction="#handleChangePassword"
+                                style="-fx-background-color: #3498DB; -fx-text-fill: white; -fx-min-width: 120;"/>
+                    </HBox>
+
+                    <TableView fx:id="tblUsers" prefHeight="280.0">
+                        <columns>
+                            <TableColumn text="ID" prefWidth="50.0"/>
+                            <TableColumn text="Username" prefWidth="150.0"/>
+                            <TableColumn text="Full Name" prefWidth="200.0"/>
+                            <TableColumn text="Email" prefWidth="200.0"/>
+                            <TableColumn text="Role" prefWidth="100.0"/>
+                            <TableColumn text="Active" prefWidth="80.0"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+            </AnchorPane>
+        </Tab>
+    </TabPane>
+</AnchorPane>

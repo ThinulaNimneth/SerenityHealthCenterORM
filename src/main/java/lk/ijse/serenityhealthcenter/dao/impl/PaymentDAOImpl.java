@@ -6,6 +6,8 @@ import lk.ijse.serenityhealthcenter.entity.Payment;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.util.Optional;
+
 public class PaymentDAOImpl implements PaymentDAO {
 
     @Override
@@ -56,6 +58,18 @@ public class PaymentDAOImpl implements PaymentDAO {
             session.close();
         }
     }
+
+
+    @Override
+    public Optional<Payment> findById(Long id){
+        Session session = FactoryConfiguration.getInstance().getSession().openSession();
+        try {
+            return Optional.ofNullable(session.get(Payment.class, id));
+        }finally {
+            session.close();
+        }
+    }
+
 
 
 

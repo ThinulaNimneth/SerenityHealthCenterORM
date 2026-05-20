@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -103,6 +104,19 @@ public class TherapySessionDAOImpl implements TherapySessionDAO {
             String hql = "FROM TherapySession ts WHERE ts.therapist.therapistId = :therapistId";
             Query<TherapySession> query =  hibernateSession.createQuery(hql, TherapySession.class);
             query.setParameter("therapistId", therapistId);
+            return   query.list();
+        }finally {
+            hibernateSession.close();
+        }
+    }
+
+    @Override
+    public List<TherapySession> findByDate(LocalDate date){
+        Session hibernateSession = FactoryConfiguration.getInstance().getSession().openSession();
+        try {
+            String hql = "FROM TherapySession ts WHERE ts.sessionDate = :date";
+            Query<TherapySession> query =  hibernateSession.createQuery(hql, TherapySession.class);
+            query.setParameter("date", date);
             return   query.list();
         }finally {
             hibernateSession.close();

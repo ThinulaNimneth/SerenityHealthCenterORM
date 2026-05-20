@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -98,6 +99,18 @@ public class PaymentDAOImpl implements PaymentDAO {
 
 
     @Override
+    public List<Payment> findByDateRange(LocalDate start, LocalDate end){
+        Session session = FactoryConfiguration.getInstance().getSession().openSession();
+        try {
+            String hql =  "FROM Payment p WHERE p.paymentDate BETWEEN :start AND :end";
+            Query<Payment> query = session.createQuery(hql, Payment.class);
+            query.setParameter("start", start);
+            query.setParameter("end", end);
+            return  query.list();
+        }finally {
+            session.close();
+        }
+    }
 
 
 

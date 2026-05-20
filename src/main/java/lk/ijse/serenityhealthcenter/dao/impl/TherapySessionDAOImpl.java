@@ -27,7 +27,21 @@ public class TherapySessionDAOImpl implements TherapySessionDAO {
 
     @Override
     public void update(TherapySession session){
-
+        Session hibernateSession = FactoryConfiguration.getInstance().getSession().openSession();
+        Transaction transaction = hibernateSession.beginTransaction();
+        try {
+            hibernateSession.merge(session);
+            transaction.commit();
+        }catch (Exception e){
+            transaction.rollback();
+            throw e;
+        }finally {
+            hibernateSession.close();
+        }
     }
+
+
+    @Override
+    public void
 
 }

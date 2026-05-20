@@ -1,11 +1,13 @@
 package lk.ijse.serenityhealthcenter.dao.impl;
 
+import jakarta.persistence.criteria.From;
 import lk.ijse.serenityhealthcenter.config.FactoryConfiguration;
 import lk.ijse.serenityhealthcenter.dao.custom.PaymentDAO;
 import lk.ijse.serenityhealthcenter.entity.Payment;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.util.List;
 import java.util.Optional;
 
 public class PaymentDAOImpl implements PaymentDAO {
@@ -69,6 +71,17 @@ public class PaymentDAOImpl implements PaymentDAO {
             session.close();
         }
     }
+
+    @Override
+    public List<Payment> findAll() {
+        Session session = FactoryConfiguration.getInstance().getSession().openSession();
+        try {
+            return session.createQuery("FROM Payment", Payment.class).list();
+        } finally {
+            session.close();
+        }
+    }
+
 
 
 

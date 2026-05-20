@@ -112,6 +112,19 @@ public class PaymentDAOImpl implements PaymentDAO {
         }
     }
 
+    @Override
+    public List<Payment> findByStatus(Payment.PaymentStatus status) {
+        Session session = FactoryConfiguration.getInstance().getSession().openSession();
+        try {
+            String hql = "FROM Payment p WHERE p.status = :status";
+            Query<Payment> query = session.createQuery(hql, Payment.class);
+            query.setParameter("status", status);
+            return  query.list();
+        }finally {
+            session.close();
+        }
+    }
+
 
 
 }

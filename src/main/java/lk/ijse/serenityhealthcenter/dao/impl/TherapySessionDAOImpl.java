@@ -6,6 +6,8 @@ import lk.ijse.serenityhealthcenter.entity.TherapySession;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.util.Optional;
+
 public class TherapySessionDAOImpl implements TherapySessionDAO {
 
     @Override
@@ -57,6 +59,16 @@ public class TherapySessionDAOImpl implements TherapySessionDAO {
         }
     }
 
+
+    @Override
+    public Optional<TherapySession> findById(Long id){
+        Session hibernateSession = FactoryConfiguration.getInstance().getSession().openSession();
+        try {
+            return Optional.ofNullable(hibernateSession.get(TherapySession.class, id));
+        }finally {
+            hibernateSession.close();
+        }
+    }
 
 
 

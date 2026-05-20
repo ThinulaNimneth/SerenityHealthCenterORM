@@ -5,7 +5,9 @@ import lk.ijse.serenityhealthcenter.dao.custom.TherapySessionDAO;
 import lk.ijse.serenityhealthcenter.entity.TherapySession;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
+import java.util.List;
 import java.util.Optional;
 
 public class TherapySessionDAOImpl implements TherapySessionDAO {
@@ -66,6 +68,16 @@ public class TherapySessionDAOImpl implements TherapySessionDAO {
         try {
             return Optional.ofNullable(hibernateSession.get(TherapySession.class, id));
         }finally {
+            hibernateSession.close();
+        }
+    }
+
+    @Override
+    public List<TherapySession> findAll() {
+        Session hibernateSession = FactoryConfiguration.getInstance().getSession().openSession();
+        try {
+            return hibernateSession.createQuery("FROM TherapySession", TherapySession.class).list();
+        } finally {
             hibernateSession.close();
         }
     }

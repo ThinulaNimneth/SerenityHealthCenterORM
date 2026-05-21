@@ -8,6 +8,9 @@ module lk.ijse.serenityhealthcenter {
     requires java.naming;
 
 
+    opens lk.ijse.serenityhealthcenter.entity to org.hibernate.orm.core;
+    opens lk.ijse.serenityhealthcenter.controller to javafx.fxml;
     opens lk.ijse.serenityhealthcenter to javafx.fxml;
+
     exports lk.ijse.serenityhealthcenter;
 }

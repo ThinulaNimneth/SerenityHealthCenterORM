@@ -6,7 +6,7 @@ import lk.ijse.serenityhealthcenter.util.CustomExceptions;
 import java.util.List;
 
 public interface UserBO {
-    Long saveUser(UserDTO userDTO) throws CustomExceptions.RegistrationException;
+    Long saveUser(UserDTO userDTO) throws CustomExceptions.RegistrationException, CustomExceptions.ValidationException;
     void updateUser(UserDTO userDTO) throws CustomExceptions.RegistrationException;
     void deleteUser(Long id);
     UserDTO getUser(Long id);

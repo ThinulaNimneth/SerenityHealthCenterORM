@@ -5,7 +5,8 @@
 <?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #2C3E50;"
-            xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+            xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="lk.ijse.serenityhealthcenter.controller.LoginController">
 
     <VBox alignment="CENTER" layoutX="150.0" layoutY="100.0" prefHeight="300.0" prefWidth="300.0"
           spacing="20.0" style="-fx-background-color: white; -fx-background-radius: 10;">
@@ -31,7 +32,8 @@
         <CheckBox fx:id="chkShowPassword" text="Show Password" />
 
         <Button fx:id="btnLogin" text="Login" prefWidth="250.0"
-                style="-fx-background-color: #3498DB; -fx-text-fill: white; -fx-background-radius: 5;">
+                style="-fx-background-color: #3498DB; -fx-text-fill: white; -fx-background-radius: 5;"
+                onAction="#handleLogin">
             <font>
                 <Font name="System Bold" size="14.0" />
             </font>

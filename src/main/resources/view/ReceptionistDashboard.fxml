@@ -6,7 +6,7 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #ECF0F1;"
             xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-            fx:controller="lk.ijse.serenity.controller.ReceptionistDashboardController">
+            fx:controller="lk.ijse.serenityhealthcenter.controller.ReceptionistDashboardController">
 
     <!-- Header -->
     <HBox layoutX="0" layoutY="0" prefHeight="80.0" prefWidth="900.0"

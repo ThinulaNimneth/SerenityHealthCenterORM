@@ -29,44 +29,32 @@ public class ValidationUtil {
             "^\\d+(\\.\\d{1,2})?$"
     );
 
-    /**
-     * email
-     */
+    //email
     public static boolean isValidEmail(String email) {
         return email != null && EMAIL_PATTERN.matcher(email).matches();
     }
 
-    /**
-     *phone num
-     */
+    //phone num
     public static boolean isValidPhone(String phone) {
         return phone != null && PHONE_PATTERN.matcher(phone).matches();
     }
 
-    /**
-     * user name
-     */
+    // user name
     public static boolean isValidUsername(String username) {
         return username != null && USERNAME_PATTERN.matcher(username).matches();
     }
 
-    /**
-     * name (person name)
-     */
+   // name (person name)
     public static boolean isValidName(String name) {
         return name != null && NAME_PATTERN.matcher(name).matches();
     }
 
-    /**
-     *  license number
-     */
+    //license number
     public static boolean isValidLicense(String license) {
         return license != null && LICENSE_PATTERN.matcher(license).matches();
     }
 
-    /**
-     *  amount
-     */
+    //amount
     public static boolean isValidAmount(String amount) {
         return amount != null && AMOUNT_PATTERN.matcher(amount).matches();
     }
@@ -75,9 +63,7 @@ public class ValidationUtil {
         return str != null && !str.trim().isEmpty();
     }
 
-    /**
-     * password
-     */
+    //password
     public static boolean isValidPassword(String password) {
         if (password == null || password.length() < 8) {
             return false;

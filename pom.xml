@@ -115,7 +115,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.8</version>
                 <configuration>
-                    <mainClass>lk.ijse.serenityhealthcenter.AppInitializer</mainClass>
+                    <mainClass>lk.ijse.serenityhealthcenter.HelloApplication</mainClass>
                 </configuration>
             </plugin>
         </plugins>

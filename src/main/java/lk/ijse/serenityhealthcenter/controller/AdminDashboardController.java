@@ -15,49 +15,58 @@ import lk.ijse.serenityhealthcenter.bo.impl.TherapistBOImpl;
 import lk.ijse.serenityhealthcenter.bo.impl.TherapyProgramBOImpl;
 import lk.ijse.serenityhealthcenter.dto.TherapistDTO;
 import lk.ijse.serenityhealthcenter.dto.TherapyProgramDTO;
+import lk.ijse.serenityhealthcenter.dto.UserDTO;
 
 import java.math.BigDecimal;
 import java.util.Optional;
 
 public class AdminDashboardController {
 
-
-    // User Info
-    @FXML
-    private Label lblUserName;
+    // Header
+    @FXML private Label lblUserName;
     @FXML private Button btnLogout;
 
-    // Therapist Management
+    // Therapist Management Tab
     @FXML private TextField txtTherapistName, txtTherapistEmail, txtTherapistPhone;
     @FXML private TextField txtSpecialization, txtQualification, txtLicenseNumber, txtYearsExp;
     @FXML private CheckBox chkAvailable;
     @FXML private TableView<TherapistDTO> tblTherapists;
     @FXML private TableColumn<TherapistDTO, Long> colTherapistId;
-    @FXML private TableColumn<TherapistDTO, String> colTherapistName, colTherapistEmail, colTherapistPhone;
+    @FXML private TableColumn<TherapistDTO, String> colTherapistName;
+    @FXML private TableColumn<TherapistDTO, String> colTherapistEmail;
+    @FXML private TableColumn<TherapistDTO, String> colTherapistPhone;
     @FXML private TableColumn<TherapistDTO, String> colSpecialization;
     @FXML private TableColumn<TherapistDTO, Boolean> colAvailable;
+    @FXML private Button btnSaveTherapist, btnUpdateTherapist, btnDeleteTherapist, btnClearTherapist;
 
-    // Program Management
+    // Program Management Tab
     @FXML private TextField txtProgramId, txtProgramName, txtDuration, txtFee;
     @FXML private TextArea txtDescription;
     @FXML private TableView<TherapyProgramDTO> tblPrograms;
-    @FXML private TableColumn<TherapyProgramDTO, String> colProgramId, colProgramName, colDuration;
+    @FXML private TableColumn<TherapyProgramDTO, String> colProgramId;
+    @FXML private TableColumn<TherapyProgramDTO, String> colProgramName;
+    @FXML private TableColumn<TherapyProgramDTO, String> colDuration;
     @FXML private TableColumn<TherapyProgramDTO, BigDecimal> colFee;
+    @FXML private Button btnSaveProgram, btnUpdateProgram, btnDeleteProgram, btnClearProgram;
 
-    // User Management
+    // User Management fields
     @FXML private TextField txtUsername, txtFullName, txtUserEmail;
     @FXML private PasswordField txtNewPassword;
     @FXML private ComboBox<String> cmbRole;
-    @FXML private TableView tblUsers;
+    @FXML private TableView<UserDTO> tblUsers;
 
     private final TherapistBO therapistBO = new TherapistBOImpl();
     private final TherapyProgramBO programBO = new TherapyProgramBOImpl();
+
+    private final ObservableList<TherapistDTO> therapistList = FXCollections.observableArrayList();
+    private final ObservableList<TherapyProgramDTO> programList = FXCollections.observableArrayList();
 
     private TherapistDTO selectedTherapist;
     private TherapyProgramDTO selectedProgram;
 
     @FXML
     public void initialize() {
+        System.out.println("AdminDashboardController initializing...");
         setupTherapistTable();
         setupProgramTable();
         loadTherapists();
@@ -67,86 +76,131 @@ public class AdminDashboardController {
         if (cmbRole != null) {
             cmbRole.setItems(FXCollections.observableArrayList("ADMIN", "RECEPTIONIST"));
         }
+        System.out.println("AdminDashboardController initialized successfully");
     }
 
     private void setupTherapistTable() {
-        colTherapistId.setCellValueFactory(new PropertyValueFactory<>("therapistId"));
-        colTherapistName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        colTherapistEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
-        colTherapistPhone.setCellValueFactory(new PropertyValueFactory<>("phone"));
-        colSpecialization.setCellValueFactory(new PropertyValueFactory<>("specialization"));
-        colAvailable.setCellValueFactory(new PropertyValueFactory<>("isAvailable"));
+        try {
+            colTherapistId.setCellValueFactory(new PropertyValueFactory<>("therapistId"));
+            colTherapistName.setCellValueFactory(new PropertyValueFactory<>("name"));
+            colTherapistEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+            colTherapistPhone.setCellValueFactory(new PropertyValueFactory<>("phone"));
+            colSpecialization.setCellValueFactory(new PropertyValueFactory<>("specialization"));
+            colAvailable.setCellValueFactory(new PropertyValueFactory<>("isAvailable"));
 
-        tblTherapists.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
-            if (newVal != null) {
+            tblTherapists.setItems(therapistList);
+
+            tblTherapists.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
                 selectedTherapist = newVal;
-                populateTherapistFields(newVal);
-            }
-        });
+                if (newVal != null) {
+                    populateTherapistFields(newVal);
+                }
+            });
+            System.out.println("Therapist table setup complete");
+        } catch (Exception e) {
+            System.err.println("Error setting up therapist table: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     private void setupProgramTable() {
-        colProgramId.setCellValueFactory(new PropertyValueFactory<>("programId"));
-        colProgramName.setCellValueFactory(new PropertyValueFactory<>("programName"));
-        colDuration.setCellValueFactory(new PropertyValueFactory<>("duration"));
-        colFee.setCellValueFactory(new PropertyValueFactory<>("fee"));
+        try {
+            colProgramId.setCellValueFactory(new PropertyValueFactory<>("programId"));
+            colProgramName.setCellValueFactory(new PropertyValueFactory<>("programName"));
+            colDuration.setCellValueFactory(new PropertyValueFactory<>("duration"));
+            colFee.setCellValueFactory(new PropertyValueFactory<>("fee"));
 
-        tblPrograms.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
-            if (newVal != null) {
+            tblPrograms.setItems(programList);
+
+            tblPrograms.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
                 selectedProgram = newVal;
-                populateProgramFields(newVal);
-            }
-        });
+                if (newVal != null) {
+                    populateProgramFields(newVal);
+                }
+            });
+            System.out.println("Program table setup complete");
+        } catch (Exception e) {
+            System.err.println("Error setting up program table: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     private void loadTherapists() {
-        ObservableList<TherapistDTO> therapists = FXCollections.observableArrayList(therapistBO.getAllTherapists());
-        tblTherapists.setItems(therapists);
+        try {
+            therapistList.clear();
+            therapistList.addAll(therapistBO.getAllTherapists());
+            System.out.println("Loaded " + therapistList.size() + " therapists");
+            tblTherapists.refresh();
+        } catch (Exception e) {
+            System.err.println("Error loading therapists: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     private void loadPrograms() {
-        ObservableList<TherapyProgramDTO> programs = FXCollections.observableArrayList(programBO.getAllPrograms());
-        tblPrograms.setItems(programs);
+        try {
+            programList.clear();
+            programList.addAll(programBO.getAllPrograms());
+            System.out.println("Loaded " + programList.size() + " programs");
+            tblPrograms.refresh();
+        } catch (Exception e) {
+            System.err.println("Error loading programs: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     private void populateTherapistFields(TherapistDTO dto) {
-        txtTherapistName.setText(dto.getName());
-        txtTherapistEmail.setText(dto.getEmail());
-        txtTherapistPhone.setText(dto.getPhone());
-        txtSpecialization.setText(dto.getSpecialization());
-        txtQualification.setText(dto.getQualification());
-        txtLicenseNumber.setText(dto.getLicenseNumber());
+        txtTherapistName.setText(dto.getName() != null ? dto.getName() : "");
+        txtTherapistEmail.setText(dto.getEmail() != null ? dto.getEmail() : "");
+        txtTherapistPhone.setText(dto.getPhone() != null ? dto.getPhone() : "");
+        txtSpecialization.setText(dto.getSpecialization() != null ? dto.getSpecialization() : "");
+        txtQualification.setText(dto.getQualification() != null ? dto.getQualification() : "");
+        txtLicenseNumber.setText(dto.getLicenseNumber() != null ? dto.getLicenseNumber() : "");
         txtYearsExp.setText(dto.getYearsOfExperience() != null ? dto.getYearsOfExperience().toString() : "");
-        chkAvailable.setSelected(dto.getIsAvailable());
+        chkAvailable.setSelected(Boolean.TRUE.equals(dto.getIsAvailable()));
     }
 
     private void populateProgramFields(TherapyProgramDTO dto) {
-        txtProgramId.setText(dto.getProgramId());
-        txtProgramName.setText(dto.getProgramName());
-        txtDuration.setText(dto.getDuration());
-        txtFee.setText(dto.getFee().toString());
-        txtDescription.setText(dto.getDescription());
+        txtProgramId.setText(dto.getProgramId() != null ? dto.getProgramId() : "");
+        txtProgramName.setText(dto.getProgramName() != null ? dto.getProgramName() : "");
+        txtDuration.setText(dto.getDuration() != null ? dto.getDuration() : "");
+        txtFee.setText(dto.getFee() != null ? dto.getFee().toString() : "");
+        txtDescription.setText(dto.getDescription() != null ? dto.getDescription() : "");
     }
 
     @FXML
     void handleSaveTherapist(ActionEvent event) {
         try {
+            if (txtTherapistName.getText().trim().isEmpty()) {
+                showError("Therapist Name is required");
+                return;
+            }
+            if (txtTherapistEmail.getText().trim().isEmpty()) {
+                showError("Email is required");
+                return;
+            }
+
             TherapistDTO dto = new TherapistDTO();
-            dto.setName(txtTherapistName.getText());
-            dto.setEmail(txtTherapistEmail.getText());
-            dto.setPhone(txtTherapistPhone.getText());
-            dto.setSpecialization(txtSpecialization.getText());
-            dto.setQualification(txtQualification.getText());
-            dto.setLicenseNumber(txtLicenseNumber.getText());
-            dto.setYearsOfExperience(txtYearsExp.getText().isEmpty() ? 0 : Integer.parseInt(txtYearsExp.getText()));
+            dto.setName(txtTherapistName.getText().trim());
+            dto.setEmail(txtTherapistEmail.getText().trim());
+            dto.setPhone(txtTherapistPhone.getText().trim());
+            dto.setSpecialization(txtSpecialization.getText().trim());
+            dto.setQualification(txtQualification.getText().trim());
+            dto.setLicenseNumber(txtLicenseNumber.getText().trim());
+
+            String yearsExp = txtYearsExp.getText().trim();
+            dto.setYearsOfExperience(yearsExp.isEmpty() ? 0 : Integer.parseInt(yearsExp));
             dto.setIsAvailable(chkAvailable.isSelected());
 
             Long id = therapistBO.saveTherapist(dto);
             showSuccess("Therapist saved successfully! ID: " + id);
             loadTherapists();
             handleClearTherapist(null);
+        } catch (NumberFormatException e) {
+            showError("Invalid years of experience");
         } catch (Exception e) {
             showError("Failed to save therapist: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -157,13 +211,15 @@ public class AdminDashboardController {
             return;
         }
         try {
-            selectedTherapist.setName(txtTherapistName.getText());
-            selectedTherapist.setEmail(txtTherapistEmail.getText());
-            selectedTherapist.setPhone(txtTherapistPhone.getText());
-            selectedTherapist.setSpecialization(txtSpecialization.getText());
-            selectedTherapist.setQualification(txtQualification.getText());
-            selectedTherapist.setLicenseNumber(txtLicenseNumber.getText());
-            selectedTherapist.setYearsOfExperience(Integer.parseInt(txtYearsExp.getText()));
+            selectedTherapist.setName(txtTherapistName.getText().trim());
+            selectedTherapist.setEmail(txtTherapistEmail.getText().trim());
+            selectedTherapist.setPhone(txtTherapistPhone.getText().trim());
+            selectedTherapist.setSpecialization(txtSpecialization.getText().trim());
+            selectedTherapist.setQualification(txtQualification.getText().trim());
+            selectedTherapist.setLicenseNumber(txtLicenseNumber.getText().trim());
+
+            String yearsExp = txtYearsExp.getText().trim();
+            selectedTherapist.setYearsOfExperience(yearsExp.isEmpty() ? 0 : Integer.parseInt(yearsExp));
             selectedTherapist.setIsAvailable(chkAvailable.isSelected());
 
             therapistBO.updateTherapist(selectedTherapist);
@@ -172,6 +228,7 @@ public class AdminDashboardController {
             handleClearTherapist(null);
         } catch (Exception e) {
             showError("Failed to update therapist: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -181,12 +238,8 @@ public class AdminDashboardController {
             showError("Please select a therapist to delete");
             return;
         }
-
-        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
-        confirm.setTitle("Confirm Delete");
-        confirm.setHeaderText("Delete Therapist");
-        confirm.setContentText("Are you sure you want to delete " + selectedTherapist.getName() + "?");
-
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION,
+                "Are you sure you want to delete " + selectedTherapist.getName() + "?");
         Optional<ButtonType> result = confirm.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
             therapistBO.deleteTherapist(selectedTherapist.getTherapistId());
@@ -213,20 +266,36 @@ public class AdminDashboardController {
     @FXML
     void handleSaveProgram(ActionEvent event) {
         try {
+            if (txtProgramId.getText().trim().isEmpty()) {
+                showError("Program ID is required");
+                return;
+            }
+            if (txtProgramName.getText().trim().isEmpty()) {
+                showError("Program Name is required");
+                return;
+            }
+            if (txtFee.getText().trim().isEmpty()) {
+                showError("Fee is required");
+                return;
+            }
+
             TherapyProgramDTO dto = new TherapyProgramDTO();
-            dto.setProgramId(txtProgramId.getText());
-            dto.setProgramName(txtProgramName.getText());
-            dto.setDuration(txtDuration.getText());
-            dto.setFee(new BigDecimal(txtFee.getText()));
-            dto.setDescription(txtDescription.getText());
+            dto.setProgramId(txtProgramId.getText().trim().toUpperCase());
+            dto.setProgramName(txtProgramName.getText().trim());
+            dto.setDuration(txtDuration.getText().trim());
+            dto.setFee(new BigDecimal(txtFee.getText().trim()));
+            dto.setDescription(txtDescription.getText().trim());
             dto.setIsActive(true);
 
             String id = programBO.saveProgram(dto);
             showSuccess("Program saved successfully! ID: " + id);
             loadPrograms();
             handleClearProgram(null);
+        } catch (NumberFormatException e) {
+            showError("Invalid fee amount");
         } catch (Exception e) {
             showError("Failed to save program: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -237,10 +306,10 @@ public class AdminDashboardController {
             return;
         }
         try {
-            selectedProgram.setProgramName(txtProgramName.getText());
-            selectedProgram.setDuration(txtDuration.getText());
-            selectedProgram.setFee(new BigDecimal(txtFee.getText()));
-            selectedProgram.setDescription(txtDescription.getText());
+            selectedProgram.setProgramName(txtProgramName.getText().trim());
+            selectedProgram.setDuration(txtDuration.getText().trim());
+            selectedProgram.setFee(new BigDecimal(txtFee.getText().trim()));
+            selectedProgram.setDescription(txtDescription.getText().trim());
 
             programBO.updateProgram(selectedProgram);
             showSuccess("Program updated successfully!");
@@ -248,6 +317,7 @@ public class AdminDashboardController {
             handleClearProgram(null);
         } catch (Exception e) {
             showError("Failed to update program: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -257,12 +327,8 @@ public class AdminDashboardController {
             showError("Please select a program to delete");
             return;
         }
-
-        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
-        confirm.setTitle("Confirm Delete");
-        confirm.setHeaderText("Delete Program");
-        confirm.setContentText("Are you sure you want to delete " + selectedProgram.getProgramName() + "?");
-
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION,
+                "Delete " + selectedProgram.getProgramName() + "?");
         Optional<ButtonType> result = confirm.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
             programBO.deleteProgram(selectedProgram.getProgramId());
@@ -285,29 +351,36 @@ public class AdminDashboardController {
 
     @FXML
     void handleAddUser(ActionEvent event) {
-        showInfo("User Management", "User add functionality - Connect to UserBO.saveUser()");
+        showInfo("User Management", "Full user management will be implemented soon.");
     }
 
     @FXML
     void handleChangePassword(ActionEvent event) {
-        showInfo("Change Password", "Password change functionality - Connect to UserBO.changePassword()");
+        showInfo("Change Password", "Password change functionality coming soon.");
     }
 
     @FXML
     void handleLogout(ActionEvent event) {
         try {
-            Stage stage = (Stage) btnLogout.getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Login.fxml"));
-            Scene scene = new Scene(loader.load());
-            stage.setScene(scene);
-            stage.centerOnScreen();
+            Alert confirm = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to logout?");
+            Optional<ButtonType> result = confirm.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                Stage stage = (Stage) btnLogout.getScene().getWindow();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Login.fxml"));
+                Scene scene = new Scene(loader.load());
+                stage.setScene(scene);
+                stage.centerOnScreen();
+            }
         } catch (Exception e) {
             e.printStackTrace();
+            showError("Logout failed: " + e.getMessage());
         }
     }
 
     public void setUserName(String userName) {
-        lblUserName.setText(userName);
+        if (lblUserName != null) {
+            lblUserName.setText(userName);
+        }
     }
 
     private void showSuccess(String message) {

@@ -12,6 +12,7 @@ import lk.ijse.serenityhealthcenter.util.CustomExceptions;
 import lk.ijse.serenityhealthcenter.util.ValidationUtil;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -88,9 +89,24 @@ public class PatientBOImpl implements PatientBO {
 
     @Override
     public List<PatientDTO> getAllPatients() {
-        return patientDAO.findAll().stream()
-                .map(this::convertToDTO)
-                .collect(Collectors.toList());
+        System.out.println("📊 BO getAllPatients() - START");
+        List<Patient> patients = patientDAO.findAll();
+        System.out.println("📊 BO - Retrieved " + patients.size() + " patients from DAO");
+
+        if (patients.isEmpty()) {
+            System.out.println("⚠️ WARNING: No patients found in database!");
+            return new ArrayList<>();
+        }
+
+        List<PatientDTO> dtos = new ArrayList<>();
+        for (Patient patient : patients) {
+            PatientDTO dto = convertToDTO(patient);
+            dtos.add(dto);
+            System.out.println("   Converted: " + dto.getName() + " -> DTO");
+        }
+
+        System.out.println("📊 BO - Returning " + dtos.size() + " DTOs");
+        return dtos;
     }
 
     @Override

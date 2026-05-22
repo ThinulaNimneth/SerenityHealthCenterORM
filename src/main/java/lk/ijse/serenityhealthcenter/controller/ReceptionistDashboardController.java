@@ -13,6 +13,8 @@ import lk.ijse.serenityhealthcenter.bo.custom.*;
 import lk.ijse.serenityhealthcenter.bo.impl.*;
 import lk.ijse.serenityhealthcenter.dto.*;
 import lk.ijse.serenityhealthcenter.util.CustomExceptions;
+import javafx.util.StringConverter;
+import javafx.application.Platform;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -25,106 +27,72 @@ import java.util.Optional;
 public class ReceptionistDashboardController {
 
     // Header
-    @FXML
-    private Label lblUserName;
-    @FXML
-    private Button btnLogout;
+    @FXML private Label lblUserName;
+    @FXML private Button btnLogout;
 
     // Patient Registration Tab
-    @FXML
-    private TextField txtPatientName;
-    @FXML
-    private TextField txtPatientEmail;
-    @FXML
-    private TextField txtPatientPhone;
-    @FXML
-    private DatePicker dpDOB;
-    @FXML
-    private ComboBox<String> cmbGender;
-    @FXML
-    private TextField txtAddress;
-    @FXML
-    private TextField txtEmergencyContact;
-    @FXML
-    private TextArea txtMedicalHistory;
-    @FXML
-    private ComboBox<TherapyProgramDTO> cmbPrograms;
-    @FXML
-    private Button btnAddProgram;
-    @FXML
-    private ListView<String> lstEnrolledPrograms;
-    @FXML
-    private Button btnRegisterPatient;
-    @FXML
-    private Button btnClearPatient;
+    @FXML private TextField txtPatientName;
+    @FXML private TextField txtPatientEmail;
+    @FXML private TextField txtPatientPhone;
+    @FXML private DatePicker dpDOB;
+    @FXML private ComboBox<String> cmbGender;
+    @FXML private TextField txtAddress;
+    @FXML private TextField txtEmergencyContact;
+    @FXML private TextArea txtMedicalHistory;
+    @FXML private ComboBox<TherapyProgramDTO> cmbPrograms;
+    @FXML private Button btnAddProgram;
+    @FXML private ListView<String> lstEnrolledPrograms;
+    @FXML private Button btnRegisterPatient;
+    @FXML private Button btnClearPatient;
 
     // Patient Management Tab
-    @FXML
-    private TextField txtSearchPatient;
-    @FXML
-    private Button btnSearchPatient;
-    @FXML
-    private Button btnViewAllPatients;
-    @FXML
-    private TableView<PatientDTO> tblPatients;
-    @FXML
-    private TableColumn<PatientDTO, Long> colPatientId;
-    @FXML
-    private TableColumn<PatientDTO, String> colPatientName;
-    @FXML
-    private TableColumn<PatientDTO, String> colPatientEmail;
-    @FXML
-    private TableColumn<PatientDTO, String> colPatientPhone;
-    @FXML
-    private TableColumn<PatientDTO, LocalDate> colRegistrationDate;
-    @FXML
-    private Button btnViewDetails;
-    @FXML
-    private Button btnUpdatePatient;
-    @FXML
-    private Button btnDeletePatient;
+    @FXML private TextField txtSearchPatient;
+    @FXML private Button btnSearchPatient;
+    @FXML private Button btnViewAllPatients;
+    @FXML private TableView<PatientDTO> tblPatients;
+    @FXML private TableColumn<PatientDTO, Long> colPatientId;
+    @FXML private TableColumn<PatientDTO, String> colPatientName;
+    @FXML private TableColumn<PatientDTO, String> colPatientEmail;
+    @FXML private TableColumn<PatientDTO, String> colPatientPhone;
+    @FXML private TableColumn<PatientDTO, LocalDate> colRegistrationDate;
+    @FXML private Button btnViewDetails;
+    @FXML private Button btnUpdatePatient;
+    @FXML private Button btnDeletePatient;
 
     // Payment Processing Tab
-    @FXML
-    private ComboBox<PatientDTO> cmbPatientPayment;
-    @FXML
-    private TextField txtAmount;
-    @FXML
-    private ComboBox<String> cmbPaymentMethod;
-    @FXML
-    private TextField txtTransactionRef;
-    @FXML
-    private TextArea txtPaymentDescription;
-    @FXML
-    private Button btnProcessPayment;
-    @FXML
-    private Button btnGenerateInvoice;
-    @FXML
-    private TableView<PaymentDTO> tblPayments;
+    @FXML private ComboBox<PatientDTO> cmbPatientPayment;
+    @FXML private TextField txtAmount;
+    @FXML private ComboBox<String> cmbPaymentMethod;
+    @FXML private TextField txtTransactionRef;
+    @FXML private TextArea txtPaymentDescription;
+    @FXML private Button btnProcessPayment;
+    @FXML private Button btnGenerateInvoice;
+    @FXML private TableView<PaymentDTO> tblPayments;
+    @FXML private TableColumn<PaymentDTO, Long> colPaymentId;
+    @FXML private TableColumn<PaymentDTO, String> colPaymentPatient;
+    @FXML private TableColumn<PaymentDTO, BigDecimal> colPaymentAmount;
+    @FXML private TableColumn<PaymentDTO, LocalDate> colPaymentDate;
+    @FXML private TableColumn<PaymentDTO, String> colPaymentMethod;
+    @FXML private TableColumn<PaymentDTO, String> colPaymentStatus;
 
     // Session Scheduling Tab
-    @FXML
-    private ComboBox<PatientDTO> cmbPatientSession;
-    @FXML
-    private ComboBox<TherapistDTO> cmbTherapistSession;
-    @FXML
-    private ComboBox<TherapyProgramDTO> cmbProgramSession;
-    @FXML
-    private DatePicker dpSessionDate;
-    @FXML
-    private TextField txtSessionTime;
-    @FXML
-    private TextField txtDurationMins;
-    @FXML
-    private TextArea txtSessionNotes;
-    @FXML
-    private Button btnScheduleSession;
-    @FXML
-    private Button btnRescheduleSession;
-    @FXML
-    private Button btnCancelSession;
-    @FXML
-    private TableView<TherapySessionDTO> tblSessions;
+    @FXML private ComboBox<PatientDTO> cmbPatientSession;
+    @FXML private ComboBox<TherapistDTO> cmbTherapistSession;
+    @FXML private ComboBox<TherapyProgramDTO> cmbProgramSession;
+    @FXML private DatePicker dpSessionDate;
+    @FXML private TextField txtSessionTime;
+    @FXML private TextField txtDurationMins;
+    @FXML private TextArea txtSessionNotes;
+    @FXML private Button btnScheduleSession;
+    @FXML private Button btnRescheduleSession;
+    @FXML private Button btnCancelSession;
+    @FXML private TableView<TherapySessionDTO> tblSessions;
+    @FXML private TableColumn<TherapySessionDTO, Long> colSessionId;
+    @FXML private TableColumn<TherapySessionDTO, String> colSessionPatient;
+    @FXML private TableColumn<TherapySessionDTO, String> colSessionTherapist;
+    @FXML private TableColumn<TherapySessionDTO, String> colSessionProgram;
+    @FXML private TableColumn<TherapySessionDTO, LocalDate> colSessionDate;
+    @FXML private TableColumn<TherapySessionDTO, String> colSessionStatus;
 
     // BO Instances
     private final PatientBO patientBO = new PatientBOImpl();
@@ -139,141 +107,249 @@ public class ReceptionistDashboardController {
     private ObservableList<TherapySessionDTO> sessionList = FXCollections.observableArrayList();
     private ObservableList<String> enrolledProgramIds = FXCollections.observableArrayList();
 
-    // Selected items for update
     private PatientDTO selectedPatient;
     private TherapySessionDTO selectedSession;
 
     @FXML
     public void initialize() {
+        System.out.println("=========================================");
+        System.out.println("ReceptionistDashboardController initializing...");
+        System.out.println("=========================================");
+
         setupPatientTable();
         setupPaymentTable();
         setupSessionTable();
         loadComboBoxes();
-        loadPatients();
-        loadPayments();
-        loadSessions();
-        setupListeners();
+
+        // Load data after UI is ready
+        Platform.runLater(() -> {
+            loadPatients();
+            loadPayments();
+            loadSessions();
+        });
+
+        System.out.println("ReceptionistDashboardController initialized successfully");
+        System.out.println("=========================================");
     }
 
     private void setupPatientTable() {
-        colPatientId.setCellValueFactory(new PropertyValueFactory<>("patientId"));
-        colPatientName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        colPatientEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
-        colPatientPhone.setCellValueFactory(new PropertyValueFactory<>("phone"));
-        colRegistrationDate.setCellValueFactory(new PropertyValueFactory<>("registrationDate"));
+        try {
+            colPatientId.setCellValueFactory(new PropertyValueFactory<>("patientId"));
+            colPatientName.setCellValueFactory(new PropertyValueFactory<>("name"));
+            colPatientEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+            colPatientPhone.setCellValueFactory(new PropertyValueFactory<>("phone"));
+            colRegistrationDate.setCellValueFactory(new PropertyValueFactory<>("registrationDate"));
 
-        tblPatients.setItems(patientList);
+            tblPatients.setItems(patientList);
 
-        tblPatients.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
-            selectedPatient = newVal;
-            if (newVal != null) {
-                populatePatientFieldsForUpdate(newVal);
-            }
-        });
+            tblPatients.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+                selectedPatient = newVal;
+                if (newVal != null) {
+                    populatePatientFieldsForUpdate(newVal);
+                }
+            });
+            System.out.println("Patient table setup complete");
+        } catch (Exception e) {
+            System.err.println("Error setting up patient table: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     private void setupPaymentTable() {
-        TableColumn<PaymentDTO, Long> colPaymentId = new TableColumn<>("Payment ID");
-        TableColumn<PaymentDTO, String> colPatientName = new TableColumn<>("Patient");
-        TableColumn<PaymentDTO, BigDecimal> colAmount = new TableColumn<>("Amount");
-        TableColumn<PaymentDTO, LocalDate> colDate = new TableColumn<>("Date");
-        TableColumn<PaymentDTO, String> colMethod = new TableColumn<>("Method");
-        TableColumn<PaymentDTO, String> colStatus = new TableColumn<>("Status");
+        try {
+            colPaymentId.setCellValueFactory(new PropertyValueFactory<>("paymentId"));
+            colPaymentPatient.setCellValueFactory(new PropertyValueFactory<>("patientName"));
+            colPaymentAmount.setCellValueFactory(new PropertyValueFactory<>("amount"));
+            colPaymentDate.setCellValueFactory(new PropertyValueFactory<>("paymentDate"));
+            colPaymentMethod.setCellValueFactory(new PropertyValueFactory<>("paymentMethod"));
+            colPaymentStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
 
-        colPaymentId.setCellValueFactory(new PropertyValueFactory<>("paymentId"));
-        colPatientName.setCellValueFactory(new PropertyValueFactory<>("patientName"));
-        colAmount.setCellValueFactory(new PropertyValueFactory<>("amount"));
-        colDate.setCellValueFactory(new PropertyValueFactory<>("paymentDate"));
-        colMethod.setCellValueFactory(new PropertyValueFactory<>("paymentMethod"));
-        colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
-
-        tblPayments.getColumns().setAll(colPaymentId, colPatientName, colAmount, colDate, colMethod, colStatus);
-        tblPayments.setItems(paymentList);
+            tblPayments.setItems(paymentList);
+            System.out.println("Payment table setup complete");
+        } catch (Exception e) {
+            System.err.println("Error setting up payment table: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     private void setupSessionTable() {
-        TableColumn<TherapySessionDTO, Long> colSessionId = new TableColumn<>("Session ID");
-        TableColumn<TherapySessionDTO, String> colPatient = new TableColumn<>("Patient");
-        TableColumn<TherapySessionDTO, String> colTherapist = new TableColumn<>("Therapist");
-        TableColumn<TherapySessionDTO, String> colProgram = new TableColumn<>("Program");
-        TableColumn<TherapySessionDTO, LocalDate> colDate = new TableColumn<>("Date");
-        TableColumn<TherapySessionDTO, String> colStatus = new TableColumn<>("Status");
+        try {
+            colSessionId.setCellValueFactory(new PropertyValueFactory<>("sessionId"));
+            colSessionPatient.setCellValueFactory(new PropertyValueFactory<>("patientName"));
+            colSessionTherapist.setCellValueFactory(new PropertyValueFactory<>("therapistName"));
+            colSessionProgram.setCellValueFactory(new PropertyValueFactory<>("programName"));
+            colSessionDate.setCellValueFactory(new PropertyValueFactory<>("sessionDate"));
+            colSessionStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
 
-        colSessionId.setCellValueFactory(new PropertyValueFactory<>("sessionId"));
-        colPatient.setCellValueFactory(new PropertyValueFactory<>("patientName"));
-        colTherapist.setCellValueFactory(new PropertyValueFactory<>("therapistName"));
-        colProgram.setCellValueFactory(new PropertyValueFactory<>("programName"));
-        colDate.setCellValueFactory(new PropertyValueFactory<>("sessionDate"));
-        colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+            tblSessions.setItems(sessionList);
 
-        tblSessions.getColumns().setAll(colSessionId, colPatient, colTherapist, colProgram, colDate, colStatus);
-        tblSessions.setItems(sessionList);
-
-        tblSessions.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
-            selectedSession = newVal;
-            if (newVal != null) {
-                populateSessionFieldsForUpdate(newVal);
-            }
-        });
+            tblSessions.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+                selectedSession = newVal;
+                if (newVal != null) {
+                    populateSessionFieldsForUpdate(newVal);
+                }
+            });
+            System.out.println("Session table setup complete");
+        } catch (Exception e) {
+            System.err.println("Error setting up session table: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     private void loadComboBoxes() {
-        // Gender options
-        cmbGender.setItems(FXCollections.observableArrayList("Male", "Female", "Other"));
+        try {
+            // Gender
+            cmbGender.setItems(FXCollections.observableArrayList("Male", "Female", "Other"));
 
-        // Payment methods
-        cmbPaymentMethod.setItems(FXCollections.observableArrayList("CASH", "CARD", "BANK_TRANSFER", "ONLINE"));
+            // Payment methods
+            cmbPaymentMethod.setItems(FXCollections.observableArrayList("CASH", "CARD", "BANK_TRANSFER", "ONLINE"));
 
-        // Therapy programs
-        List<TherapyProgramDTO> programs = programBO.getActivePrograms();
-        cmbPrograms.setItems(FXCollections.observableArrayList(programs));
+            // Programs
+            List<TherapyProgramDTO> programs = programBO.getActivePrograms();
+            ObservableList<TherapyProgramDTO> programItems = FXCollections.observableArrayList(programs);
+            cmbPrograms.setItems(programItems);
+            cmbProgramSession.setItems(programItems);
 
-        // Patients for payment dropdown
+            StringConverter<TherapyProgramDTO> programConverter = new StringConverter<>() {
+                @Override
+                public String toString(TherapyProgramDTO p) {
+                    return p == null ? "" : p.getProgramId() + " - " + p.getProgramName();
+                }
+                @Override
+                public TherapyProgramDTO fromString(String s) { return null; }
+            };
+            cmbPrograms.setConverter(programConverter);
+            cmbProgramSession.setConverter(programConverter);
+
+            // Patients
+            loadPatientsForDropdowns();
+
+            // Therapists
+            loadTherapists();
+
+            System.out.println("ComboBoxes loaded successfully");
+        } catch (Exception e) {
+            System.err.println("Error loading combo boxes: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    private void loadPatientsForDropdowns() {
         List<PatientDTO> patients = patientBO.getAllPatients();
-        cmbPatientPayment.setItems(FXCollections.observableArrayList(patients));
+        ObservableList<PatientDTO> patientItems = FXCollections.observableArrayList(patients);
+        cmbPatientPayment.setItems(patientItems);
+        cmbPatientSession.setItems(patientItems);
 
-        // Patients for session dropdown
-        cmbPatientSession.setItems(FXCollections.observableArrayList(patients));
-
-        // Therapists for session dropdown
-        loadTherapists();
-
-        // Programs for session dropdown
-        cmbProgramSession.setItems(FXCollections.observableArrayList(programs));
+        StringConverter<PatientDTO> patientConverter = new StringConverter<>() {
+            @Override
+            public String toString(PatientDTO p) {
+                return p == null ? "" : p.getName() + " (" + p.getPatientId() + ")";
+            }
+            @Override
+            public PatientDTO fromString(String s) { return null; }
+        };
+        cmbPatientPayment.setConverter(patientConverter);
+        cmbPatientSession.setConverter(patientConverter);
     }
 
     private void loadTherapists() {
         List<TherapistDTO> therapists = therapistBO.getAvailableTherapists();
         cmbTherapistSession.setItems(FXCollections.observableArrayList(therapists));
+
+        StringConverter<TherapistDTO> therapistConverter = new StringConverter<>() {
+            @Override
+            public String toString(TherapistDTO t) {
+                return t == null ? "" : t.getName() + " (" + t.getSpecialization() + ")";
+            }
+            @Override
+            public TherapistDTO fromString(String s) { return null; }
+        };
+        cmbTherapistSession.setConverter(therapistConverter);
     }
 
     private void loadPatients() {
-        patientList.setAll(patientBO.getAllPatients());
-        // Refresh dropdowns
-        List<PatientDTO> patients = patientBO.getAllPatients();
-        cmbPatientPayment.setItems(FXCollections.observableArrayList(patients));
-        cmbPatientSession.setItems(FXCollections.observableArrayList(patients));
+        try {
+            System.out.println("🔄 ===== LOADING PATIENTS =====");
+
+            // Clear existing list
+            patientList.clear();
+
+            // Fetch from database
+            List<PatientDTO> patients = patientBO.getAllPatients();
+            System.out.println("📊 Retrieved " + patients.size() + " patients from BO");
+
+            if (patients.isEmpty()) {
+                System.out.println("⚠️ No patients found! Please add a patient first.");
+                showWarning("No patients found. Please register a patient first.");
+                return;
+            }
+
+            // Add to observable list
+            patientList.addAll(patients);
+            System.out.println("📊 Added to ObservableList. Size: " + patientList.size());
+
+            // Set to table and refresh
+            tblPatients.setItems(patientList);
+            tblPatients.refresh();
+
+            // Force table to redraw
+            tblPatients.setItems(null);
+            tblPatients.setItems(patientList);
+
+            System.out.println("✅ Table now has " + tblPatients.getItems().size() + " items");
+
+            // Update dropdowns
+            loadPatientsForDropdowns();
+
+        } catch (Exception e) {
+            System.err.println("❌ Error loading patients: " + e.getMessage());
+            e.printStackTrace();
+            showError("Failed to load patients: " + e.getMessage());
+        }
     }
 
     private void loadPayments() {
-        paymentList.setAll(paymentBO.getAllPayments());
+        try {
+            paymentList.clear();
+            paymentList.addAll(paymentBO.getAllPayments());
+            System.out.println("Loaded " + paymentList.size() + " payments");
+            tblPayments.refresh();
+        } catch (Exception e) {
+            System.err.println("Error loading payments: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     private void loadSessions() {
-        sessionList.setAll(sessionBO.getAllSessions());
+        try {
+            sessionList.clear();
+            sessionList.addAll(sessionBO.getAllSessions());
+            System.out.println("Loaded " + sessionList.size() + " sessions");
+            tblSessions.refresh();
+        } catch (Exception e) {
+            System.err.println("Error loading sessions: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
-    private void setupListeners() {
-        // Refresh patient dropdown when table selection changes
-        cmbPatientPayment.valueProperty().addListener((obs, oldVal, newVal) -> {
-            if (newVal != null) {
-                loadPaymentsForPatient(newVal.getPatientId());
-            }
+    private void forceTableRefresh() {
+        Platform.runLater(() -> {
+            // Method 1: Clear and reset items
+            tblPatients.setItems(null);
+            tblPatients.setItems(patientList);
+
+            // Method 2: Refresh all columns
+            tblPatients.getColumns().forEach(column -> {
+                column.setVisible(false);
+                column.setVisible(true);
+            });
+
+            // Method 3: Force layout update
+            tblPatients.layout();
+
+            System.out.println("Force refresh complete. Table items: " +
+                    (tblPatients.getItems() != null ? tblPatients.getItems().size() : "null"));
         });
-    }
-
-    private void loadPaymentsForPatient(Long patientId) {
-        paymentList.setAll(paymentBO.getPaymentsByPatient(patientId));
     }
 
     private void populatePatientFieldsForUpdate(PatientDTO patient) {
@@ -302,11 +378,19 @@ public class ReceptionistDashboardController {
     }
 
     private TherapistDTO findTherapistById(Long id) {
-        return cmbTherapistSession.getItems().stream().filter(t -> t.getTherapistId().equals(id)).findFirst().orElse(null);
+        if (cmbTherapistSession.getItems() != null) {
+            return cmbTherapistSession.getItems().stream()
+                    .filter(t -> t.getTherapistId().equals(id)).findFirst().orElse(null);
+        }
+        return null;
     }
 
     private TherapyProgramDTO findProgramById(String id) {
-        return cmbProgramSession.getItems().stream().filter(p -> p.getProgramId().equals(id)).findFirst().orElse(null);
+        if (cmbProgramSession.getItems() != null) {
+            return cmbProgramSession.getItems().stream()
+                    .filter(p -> p.getProgramId().equals(id)).findFirst().orElse(null);
+        }
+        return null;
     }
 
     private void clearPatientForm() {
@@ -369,7 +453,7 @@ public class ReceptionistDashboardController {
     @FXML
     private void handleAddProgram() {
         TherapyProgramDTO selected = cmbPrograms.getValue();
-        if (selected != null && !enrolledProgramIds.contains(selected.getProgramId())) {
+        if (selected != null && !enrolledProgramIds.contains(selected.getProgramId() + " - " + selected.getProgramName())) {
             enrolledProgramIds.add(selected.getProgramId() + " - " + selected.getProgramName());
             lstEnrolledPrograms.setItems(FXCollections.observableArrayList(enrolledProgramIds));
         } else if (selected == null) {
@@ -382,7 +466,6 @@ public class ReceptionistDashboardController {
     @FXML
     private void handleRegisterPatient() {
         try {
-            // Validate required fields
             if (txtPatientName.getText().trim().isEmpty()) {
                 throw new CustomExceptions.MissingFieldException("Patient Name");
             }
@@ -403,7 +486,7 @@ public class ReceptionistDashboardController {
 
             Long patientId = patientBO.savePatient(dto);
 
-            // Enroll in selected programs (extract program IDs)
+            // Enroll in selected programs
             for (String enrolled : enrolledProgramIds) {
                 String programId = enrolled.split(" - ")[0];
                 patientBO.enrollInProgram(patientId, programId);
@@ -413,12 +496,11 @@ public class ReceptionistDashboardController {
             clearPatientForm();
             loadPatients();
 
-        } catch (CustomExceptions.ValidationException e) {
-            showError("Validation error: " + e.getMessage());
-        } catch (CustomExceptions.RegistrationException e) {
-            showError("Registration error: " + e.getMessage());
+        } catch (CustomExceptions.ValidationException | CustomExceptions.RegistrationException e) {
+            showError(e.getMessage());
         } catch (Exception e) {
             showError("Failed to register patient: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -481,6 +563,7 @@ public class ReceptionistDashboardController {
             showError("Update error: " + e.getMessage());
         } catch (Exception e) {
             showError("Failed to update patient: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -539,9 +622,6 @@ public class ReceptionistDashboardController {
             showSuccess("Payment processed successfully! Payment ID: " + paymentId);
             clearPaymentForm();
             loadPayments();
-            if (selected != null) {
-                loadPaymentsForPatient(selected.getPatientId());
-            }
 
         } catch (CustomExceptions.MissingFieldException e) {
             showError(e.getMessage());
@@ -549,6 +629,7 @@ public class ReceptionistDashboardController {
             showError("Invalid amount format");
         } catch (Exception e) {
             showError("Payment failed: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -591,24 +672,12 @@ public class ReceptionistDashboardController {
             TherapistDTO therapist = cmbTherapistSession.getValue();
             TherapyProgramDTO program = cmbProgramSession.getValue();
 
-            if (patient == null) {
-                throw new CustomExceptions.MissingFieldException("Patient");
-            }
-            if (therapist == null) {
-                throw new CustomExceptions.MissingFieldException("Therapist");
-            }
-            if (program == null) {
-                throw new CustomExceptions.MissingFieldException("Program");
-            }
-            if (dpSessionDate.getValue() == null) {
-                throw new CustomExceptions.MissingFieldException("Session Date");
-            }
-            if (txtSessionTime.getText().trim().isEmpty()) {
-                throw new CustomExceptions.MissingFieldException("Session Time");
-            }
-            if (txtDurationMins.getText().trim().isEmpty()) {
-                throw new CustomExceptions.MissingFieldException("Duration");
-            }
+            if (patient == null) throw new CustomExceptions.MissingFieldException("Patient");
+            if (therapist == null) throw new CustomExceptions.MissingFieldException("Therapist");
+            if (program == null) throw new CustomExceptions.MissingFieldException("Program");
+            if (dpSessionDate.getValue() == null) throw new CustomExceptions.MissingFieldException("Session Date");
+            if (txtSessionTime.getText().trim().isEmpty()) throw new CustomExceptions.MissingFieldException("Session Time");
+            if (txtDurationMins.getText().trim().isEmpty()) throw new CustomExceptions.MissingFieldException("Duration");
 
             TherapySessionDTO dto = new TherapySessionDTO();
             dto.setPatientId(patient.getPatientId());
@@ -619,15 +688,8 @@ public class ReceptionistDashboardController {
             dto.setProgramName(program.getProgramName());
             dto.setSessionDate(dpSessionDate.getValue());
 
-            // Parse time
-            try {
-                LocalTime time = LocalTime.parse(txtSessionTime.getText().trim(), DateTimeFormatter.ofPattern("HH:mm"));
-                dto.setSessionTime(time);
-            } catch (DateTimeParseException e) {
-                showError("Invalid time format. Please use HH:MM (e.g., 14:30)");
-                return;
-            }
-
+            LocalTime time = LocalTime.parse(txtSessionTime.getText().trim(), DateTimeFormatter.ofPattern("HH:mm"));
+            dto.setSessionTime(time);
             dto.setDurationMinutes(Integer.parseInt(txtDurationMins.getText().trim()));
             dto.setStatus("SCHEDULED");
             dto.setNotes(txtSessionNotes.getText().trim());
@@ -636,14 +698,17 @@ public class ReceptionistDashboardController {
             showSuccess("Session scheduled successfully! Session ID: " + sessionId);
             clearSessionForm();
             loadSessions();
-            loadTherapists(); // Refresh therapist availability
+            loadTherapists();
 
+        } catch (DateTimeParseException e) {
+            showError("Invalid time format. Please use HH:MM (e.g., 14:30)");
         } catch (CustomExceptions.MissingFieldException e) {
             showError(e.getMessage());
         } catch (NumberFormatException e) {
             showError("Invalid duration. Please enter a number.");
         } catch (Exception e) {
             showError("Failed to schedule session: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -678,6 +743,7 @@ public class ReceptionistDashboardController {
             showError(e.getMessage());
         } catch (Exception e) {
             showError("Failed to reschedule session: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -700,8 +766,15 @@ public class ReceptionistDashboardController {
             showSuccess("Session cancelled successfully!");
             clearSessionForm();
             loadSessions();
-            loadTherapists(); // Refresh therapist availability
+            loadTherapists();
         }
+    }
+
+    @FXML
+    private void handleForceRefresh() {
+        System.out.println("Manual refresh triggered");
+        loadPatients();
+        showSuccess("Table refreshed!");
     }
 
     private void showPatientDetailsDialog(PatientDTO patient) {

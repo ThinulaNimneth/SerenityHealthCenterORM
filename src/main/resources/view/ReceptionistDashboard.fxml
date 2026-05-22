@@ -4,12 +4,12 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #ECF0F1;"
-            xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+<AnchorPane prefHeight="650.0" prefWidth="950.0" style="-fx-background-color: #ECF0F1;"
+            xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="lk.ijse.serenityhealthcenter.controller.ReceptionistDashboardController">
 
     <!-- Header -->
-    <HBox layoutX="0" layoutY="0" prefHeight="80.0" prefWidth="900.0"
+    <HBox layoutX="0" layoutY="0" prefHeight="80.0" prefWidth="950.0"
           style="-fx-background-color: #16A085; -fx-padding: 20;">
         <Label text="Serenity MHTC - Receptionist Dashboard" textFill="white">
             <font><Font name="System Bold" size="24.0" /></font>
@@ -23,7 +23,7 @@
     </HBox>
 
     <!-- Main Content -->
-    <TabPane layoutX="20.0" layoutY="100.0" prefHeight="480.0" prefWidth="860.0" tabClosingPolicy="UNAVAILABLE">
+    <TabPane layoutX="20.0" layoutY="100.0" prefHeight="520.0" prefWidth="910.0" tabClosingPolicy="UNAVAILABLE">
 
         <!-- Patient Registration Tab -->
         <Tab text="Patient Registration">
@@ -32,8 +32,8 @@
                     <Label text="Patient Registration" style="-fx-font-size: 18; -fx-font-weight: bold;"/>
 
                     <HBox spacing="10.0">
-                        <TextField fx:id="txtPatientName" promptText="Patient Name" prefWidth="200.0"/>
-                        <TextField fx:id="txtPatientEmail" promptText="Email" prefWidth="200.0"/>
+                        <TextField fx:id="txtPatientName" promptText="Patient Name *" prefWidth="200.0"/>
+                        <TextField fx:id="txtPatientEmail" promptText="Email *" prefWidth="200.0"/>
                         <TextField fx:id="txtPatientPhone" promptText="Phone (07XXXXXXXX)" prefWidth="150.0"/>
                         <DatePicker fx:id="dpDOB" promptText="Date of Birth" prefWidth="150.0"/>
                     </HBox>
@@ -49,15 +49,15 @@
                     <Label text="Enroll in Programs:" style="-fx-font-weight: bold;"/>
                     <HBox spacing="10.0">
                         <ComboBox fx:id="cmbPrograms" promptText="Select Program" prefWidth="300.0"/>
-                        <Button text="Add Program" onAction="#handleAddProgram"
+                        <Button fx:id="btnAddProgram" text="Add Program" onAction="#handleAddProgram"
                                 style="-fx-background-color: #3498DB; -fx-text-fill: white;"/>
                     </HBox>
                     <ListView fx:id="lstEnrolledPrograms" prefHeight="80.0"/>
 
                     <HBox spacing="10.0">
-                        <Button text="Register Patient" onAction="#handleRegisterPatient"
+                        <Button fx:id="btnRegisterPatient" text="Register Patient" onAction="#handleRegisterPatient"
                                 style="-fx-background-color: #27AE60; -fx-text-fill: white; -fx-min-width: 120;"/>
-                        <Button text="Clear" onAction="#handleClearPatient" style="-fx-min-width: 100;"/>
+                        <Button fx:id="btnClearPatient" text="Clear" onAction="#handleClearPatient" style="-fx-min-width: 100;"/>
                     </HBox>
                 </VBox>
             </AnchorPane>
@@ -71,27 +71,32 @@
 
                     <HBox spacing="10.0">
                         <TextField fx:id="txtSearchPatient" promptText="Search by name" prefWidth="250.0"/>
-                        <Button text="Search" onAction="#handleSearchPatient"
+                        <Button fx:id="btnSearchPatient" text="Search" onAction="#handleSearchPatient"
                                 style="-fx-background-color: #3498DB; -fx-text-fill: white;"/>
-                        <Button text="View All" onAction="#handleViewAllPatients" style="-fx-min-width: 100;"/>
+                        <Button fx:id="btnViewAllPatients" text="View All" onAction="#handleViewAllPatients" style="-fx-min-width: 100;"/>
+                        <Button text="REFRESH TABLE" onAction="#handleForceRefresh"
+                                style="-fx-background-color: #9B59B6; -fx-text-fill: white; -fx-min-width: 120;"/>
                     </HBox>
 
-                    <TableView fx:id="tblPatients" prefHeight="350.0">
+                    <TableView fx:id="tblPatients" prefHeight="320.0">
                         <columns>
-                            <TableColumn fx:id="colPatientId" text="ID" prefWidth="50.0"/>
-                            <TableColumn fx:id="colPatientName" text="Name" prefWidth="150.0"/>
-                            <TableColumn fx:id="colPatientEmail" text="Email" prefWidth="180.0"/>
+                            <TableColumn fx:id="colPatientId" text="ID" prefWidth="60.0"/>
+                            <TableColumn fx:id="colPatientName" text="Name" prefWidth="180.0"/>
+                            <TableColumn fx:id="colPatientEmail" text="Email" prefWidth="200.0"/>
                             <TableColumn fx:id="colPatientPhone" text="Phone" prefWidth="120.0"/>
-                            <TableColumn fx:id="colRegistrationDate" text="Registered" prefWidth="100.0"/>
+                            <TableColumn fx:id="colRegistrationDate" text="Registered" prefWidth="120.0"/>
                         </columns>
+                        <columnResizePolicy>
+                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                        </columnResizePolicy>
                     </TableView>
 
                     <HBox spacing="10.0">
-                        <Button text="View Details" onAction="#handleViewPatientDetails"
+                        <Button fx:id="btnViewDetails" text="View Details" onAction="#handleViewPatientDetails"
                                 style="-fx-background-color: #3498DB; -fx-text-fill: white; -fx-min-width: 100;"/>
-                        <Button text="Update" onAction="#handleUpdatePatient"
+                        <Button fx:id="btnUpdatePatient" text="Update" onAction="#handleUpdatePatient"
                                 style="-fx-background-color: #F39C12; -fx-text-fill: white; -fx-min-width: 100;"/>
-                        <Button text="Delete" onAction="#handleDeletePatient"
+                        <Button fx:id="btnDeletePatient" text="Delete" onAction="#handleDeletePatient"
                                 style="-fx-background-color: #E74C3C; -fx-text-fill: white; -fx-min-width: 100;"/>
                     </HBox>
                 </VBox>
@@ -105,7 +110,7 @@
                     <Label text="Payment Processing" style="-fx-font-size: 18; -fx-font-weight: bold;"/>
 
                     <HBox spacing="10.0">
-                        <ComboBox fx:id="cmbPatientPayment" promptText="Select Patient" prefWidth="200.0"/>
+                        <ComboBox fx:id="cmbPatientPayment" promptText="Select Patient" prefWidth="220.0"/>
                         <TextField fx:id="txtAmount" promptText="Amount (LKR)" prefWidth="120.0"/>
                         <ComboBox fx:id="cmbPaymentMethod" promptText="Payment Method" prefWidth="150.0"/>
                         <TextField fx:id="txtTransactionRef" promptText="Transaction Ref" prefWidth="150.0"/>
@@ -114,21 +119,24 @@
                     <TextArea fx:id="txtPaymentDescription" promptText="Description/Notes" prefHeight="60.0"/>
 
                     <HBox spacing="10.0">
-                        <Button text="Process Payment" onAction="#handleProcessPayment"
+                        <Button fx:id="btnProcessPayment" text="Process Payment" onAction="#handleProcessPayment"
                                 style="-fx-background-color: #27AE60; -fx-text-fill: white; -fx-min-width: 120;"/>
-                        <Button text="Generate Invoice" onAction="#handleGenerateInvoice"
+                        <Button fx:id="btnGenerateInvoice" text="Generate Invoice" onAction="#handleGenerateInvoice"
                                 style="-fx-background-color: #3498DB; -fx-text-fill: white; -fx-min-width: 120;"/>
                     </HBox>
 
-                    <TableView fx:id="tblPayments" prefHeight="250.0">
+                    <TableView fx:id="tblPayments" prefHeight="280.0">
                         <columns>
-                            <TableColumn text="Payment ID" prefWidth="80.0"/>
-                            <TableColumn text="Patient" prefWidth="150.0"/>
-                            <TableColumn text="Amount" prefWidth="100.0"/>
-                            <TableColumn text="Date" prefWidth="100.0"/>
-                            <TableColumn text="Method" prefWidth="100.0"/>
-                            <TableColumn text="Status" prefWidth="100.0"/>
+                            <TableColumn fx:id="colPaymentId" text="Payment ID" prefWidth="80.0"/>
+                            <TableColumn fx:id="colPaymentPatient" text="Patient" prefWidth="160.0"/>
+                            <TableColumn fx:id="colPaymentAmount" text="Amount" prefWidth="100.0"/>
+                            <TableColumn fx:id="colPaymentDate" text="Date" prefWidth="100.0"/>
+                            <TableColumn fx:id="colPaymentMethod" text="Method" prefWidth="120.0"/>
+                            <TableColumn fx:id="colPaymentStatus" text="Status" prefWidth="100.0"/>
                         </columns>
+                        <columnResizePolicy>
+                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                        </columnResizePolicy>
                     </TableView>
                 </VBox>
             </AnchorPane>
@@ -141,9 +149,9 @@
                     <Label text="Therapy Session Scheduling" style="-fx-font-size: 18; -fx-font-weight: bold;"/>
 
                     <HBox spacing="10.0">
-                        <ComboBox fx:id="cmbPatientSession" promptText="Select Patient" prefWidth="180.0"/>
-                        <ComboBox fx:id="cmbTherapistSession" promptText="Select Therapist" prefWidth="180.0"/>
-                        <ComboBox fx:id="cmbProgramSession" promptText="Select Program" prefWidth="180.0"/>
+                        <ComboBox fx:id="cmbPatientSession" promptText="Select Patient" prefWidth="200.0"/>
+                        <ComboBox fx:id="cmbTherapistSession" promptText="Select Therapist" prefWidth="200.0"/>
+                        <ComboBox fx:id="cmbProgramSession" promptText="Select Program" prefWidth="200.0"/>
                     </HBox>
 
                     <HBox spacing="10.0">
@@ -155,23 +163,26 @@
                     <TextArea fx:id="txtSessionNotes" promptText="Session Notes" prefHeight="60.0"/>
 
                     <HBox spacing="10.0">
-                        <Button text="Schedule Session" onAction="#handleScheduleSession"
+                        <Button fx:id="btnScheduleSession" text="Schedule Session" onAction="#handleScheduleSession"
                                 style="-fx-background-color: #27AE60; -fx-text-fill: white; -fx-min-width: 120;"/>
-                        <Button text="Reschedule" onAction="#handleRescheduleSession"
+                        <Button fx:id="btnRescheduleSession" text="Reschedule" onAction="#handleRescheduleSession"
                                 style="-fx-background-color: #F39C12; -fx-text-fill: white; -fx-min-width: 100;"/>
-                        <Button text="Cancel Session" onAction="#handleCancelSession"
+                        <Button fx:id="btnCancelSession" text="Cancel Session" onAction="#handleCancelSession"
                                 style="-fx-background-color: #E74C3C; -fx-text-fill: white; -fx-min-width: 100;"/>
                     </HBox>
 
-                    <TableView fx:id="tblSessions" prefHeight="200.0">
+                    <TableView fx:id="tblSessions" prefHeight="240.0">
                         <columns>
-                            <TableColumn text="Session ID" prefWidth="80.0"/>
-                            <TableColumn text="Patient" prefWidth="130.0"/>
-                            <TableColumn text="Therapist" prefWidth="130.0"/>
-                            <TableColumn text="Program" prefWidth="150.0"/>
-                            <TableColumn text="Date" prefWidth="100.0"/>
-                            <TableColumn text="Status" prefWidth="100.0"/>
+                            <TableColumn fx:id="colSessionId" text="Session ID" prefWidth="80.0"/>
+                            <TableColumn fx:id="colSessionPatient" text="Patient" prefWidth="140.0"/>
+                            <TableColumn fx:id="colSessionTherapist" text="Therapist" prefWidth="140.0"/>
+                            <TableColumn fx:id="colSessionProgram" text="Program" prefWidth="160.0"/>
+                            <TableColumn fx:id="colSessionDate" text="Date" prefWidth="100.0"/>
+                            <TableColumn fx:id="colSessionStatus" text="Status" prefWidth="100.0"/>
                         </columns>
+                        <columnResizePolicy>
+                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                        </columnResizePolicy>
                     </TableView>
                 </VBox>
             </AnchorPane>

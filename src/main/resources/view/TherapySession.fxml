@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="620.0" prefWidth="860.0"
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="lk.ijse.serenityhealthcenter.controllers.TherapySessionController">
+    <children>
+        <VBox spacing="15.0" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0"
+              AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+            <padding><Insets topRightBottomLeft="20"/></padding>
+
+            <Label text="Therapy Session Scheduling" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;"/>
+            <Separator/>
+
+            <GridPane hgap="20.0" vgap="10.0">
+                <columnConstraints>
+                    <ColumnConstraints minWidth="130.0"/>
+                    <ColumnConstraints minWidth="230.0"/>
+                    <ColumnConstraints minWidth="130.0"/>
+                    <ColumnConstraints minWidth="230.0"/>
+                </columnConstraints>
+
+                <!-- Patient -->
+                <Label text="Patient ID:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <ComboBox fx:id="cmbPatientId" promptText="Select Patient" prefHeight="35.0" prefWidth="230.0"
+                          onAction="#onPatientSelected"
+                          GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                <Label text="Patient Name:" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                <TextField fx:id="txtPatientName" prefHeight="35.0" editable="false"
+                           GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+
+                <Label text="Contact:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtPatientContact" prefHeight="35.0" editable="false"
+                           GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                <!-- Program -->
+                <Label text="Program ID:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <ComboBox fx:id="cmbProgramId" promptText="Select Program" prefHeight="35.0" prefWidth="230.0"
+                          onAction="#onProgramSelected"
+                          GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                <Label text="Program Name:" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
+                <TextField fx:id="txtProgramName" prefHeight="35.0" editable="false"
+                           GridPane.rowIndex="2" GridPane.columnIndex="3"/>
+
+                <Label text="Program Fee:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtProgramFee" prefHeight="35.0" editable="false"
+                           GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                <!-- Therapist & Date -->
+                <Label text="Therapist ID:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                <ComboBox fx:id="cmbTherapistId" promptText="Select Therapist" prefHeight="35.0" prefWidth="230.0"
+                          GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+                <Label text="Session Date:" GridPane.rowIndex="4" GridPane.columnIndex="2"/>
+                <DatePicker fx:id="dpSessionDate" prefHeight="35.0"
+                            GridPane.rowIndex="4" GridPane.columnIndex="3"/>
+
+                <!-- Payment -->
+                <Label text="Payment Type:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+                <ComboBox fx:id="cmbPaymentType" promptText="Select Payment Type"
+                          prefHeight="35.0" prefWidth="230.0"
+                          GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+
+                <Label text="Amount Paid:" GridPane.rowIndex="5" GridPane.columnIndex="2"/>
+                <TextField fx:id="txtAmountPaid" promptText="Amount Paid (LKR)" prefHeight="35.0"
+                           GridPane.rowIndex="5" GridPane.columnIndex="3"/>
+            </GridPane>
+
+            <HBox spacing="10.0">
+                <Button fx:id="btnBook" text="Book Session" onAction="#bookSession" prefHeight="35.0" prefWidth="140.0"
+                        style="-fx-background-color: #27AE60; -fx-text-fill: white; -fx-background-radius: 5;"/>
+                <Button fx:id="btnReschedule" text="Reschedule" onAction="#rescheduleSession" prefHeight="35.0" prefWidth="130.0"
+                        style="-fx-background-color: #2980B9; -fx-text-fill: white; -fx-background-radius: 5;"/>
+                <Button fx:id="btnCancel" text="Cancel Booking" onAction="#cancelSession" prefHeight="35.0" prefWidth="140.0"
+                        style="-fx-background-color: #E74C3C; -fx-text-fill: white; -fx-background-radius: 5;"/>
+                <Button fx:id="btnInvoice" text="Generate Invoice" onAction="#generateInvoice" prefHeight="35.0" prefWidth="150.0"
+                        style="-fx-background-color: #8E44AD; -fx-text-fill: white; -fx-background-radius: 5;"/>
+            </HBox>
+        </VBox>
+    </children>
+</AnchorPane>

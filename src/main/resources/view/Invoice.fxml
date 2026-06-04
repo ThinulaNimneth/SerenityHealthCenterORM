@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="680.0" prefWidth="480.0"
+            style="-fx-background-color: white;"
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="lk.ijse.serenityhealthcenter.controllers.InvoiceController">
+    <children>
+        <VBox fx:id="invoiceRoot" spacing="10.0"
+              AnchorPane.topAnchor="10" AnchorPane.bottomAnchor="10"
+              AnchorPane.leftAnchor="15" AnchorPane.rightAnchor="15">
+
+            <!-- Header -->
+            <VBox alignment="CENTER" spacing="4.0">
+                <padding><Insets bottom="10" top="10"/></padding>
+                <Label text="Serenity Mental Health Therapy Center"
+                       style="-fx-font-weight: bold; -fx-font-size: 18px;"/>
+                <Label text="OFFICIAL INVOICE" style="-fx-font-size: 14px;"/>
+                <Label fx:id="lblInvoiceNumber" text="Invoice #: " style="-fx-font-size: 12px;"/>
+                <Label fx:id="lblDate" text="Date: " style="-fx-font-size: 12px;"/>
+            </VBox>
+
+            <Separator/>
+
+            <!-- Patient Info -->
+            <Label text="PATIENT INFORMATION" style="-fx-font-weight: bold; -fx-text-fill: #1A5276;"/>
+            <GridPane hgap="10.0" vgap="5.0">
+                <columnConstraints>
+                    <ColumnConstraints minWidth="130.0"/>
+                    <ColumnConstraints minWidth="280.0"/>
+                </columnConstraints>
+                <Label text="Patient ID:"    style="-fx-font-weight: bold;" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <Label fx:id="lblPatientId" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                <Label text="Patient Name:"  style="-fx-font-weight: bold;" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <Label fx:id="lblPatientName" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                <Label text="Contact:"       style="-fx-font-weight: bold;" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <Label fx:id="lblContact" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+            </GridPane>
+
+            <Separator/>
+
+            <!-- Session Info -->
+            <Label text="SESSION INFORMATION" style="-fx-font-weight: bold; -fx-text-fill: #1A5276;"/>
+            <GridPane hgap="10.0" vgap="5.0">
+                <columnConstraints>
+                    <ColumnConstraints minWidth="130.0"/>
+                    <ColumnConstraints minWidth="280.0"/>
+                </columnConstraints>
+                <Label text="Program ID:"    style="-fx-font-weight: bold;" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <Label fx:id="lblProgramId" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                <Label text="Program Name:"  style="-fx-font-weight: bold;" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <Label fx:id="lblProgramName" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                <Label text="Therapist ID:"  style="-fx-font-weight: bold;" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <Label fx:id="lblTherapistId" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                <Label text="Session Date:"  style="-fx-font-weight: bold;" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                <Label fx:id="lblSessionDate" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+            </GridPane>
+
+            <Separator/>
+
+            <!-- Payment Info -->
+            <Label text="PAYMENT DETAILS" style="-fx-font-weight: bold; -fx-text-fill: #1A5276;"/>
+            <GridPane hgap="10.0" vgap="5.0">
+                <columnConstraints>
+                    <ColumnConstraints minWidth="150.0"/>
+                    <ColumnConstraints minWidth="260.0"/>
+                </columnConstraints>
+                <Label text="Payment Type:"   style="-fx-font-weight: bold;" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <Label fx:id="lblPaymentType" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                <Label text="Program Fee:"    style="-fx-font-weight: bold;" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <Label fx:id="lblProgramFee"  GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                <Label text="Amount Paid:"    style="-fx-font-weight: bold;" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <Label fx:id="lblAmountPaid"  GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                <Label text="Balance Due:"    style="-fx-font-weight: bold; -fx-font-size: 14px;" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                <Label fx:id="lblBalance" text="LKR 0.00"
+                       style="-fx-text-fill: #C0392B; -fx-font-weight: bold; -fx-font-size: 14px;"
+                       GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+            </GridPane>
+
+            <VBox VBox.vgrow="ALWAYS"/>
+
+            <!-- Footer -->
+            <Label text="Thank you for choosing Serenity Therapy Center!"
+                   style="-fx-text-fill: #555; -fx-font-size: 12px;" textAlignment="CENTER"/>
+
+            <HBox alignment="CENTER">
+                <padding><Insets top="10" bottom="10"/></padding>
+                <Button fx:id="btnPrint" text="Print Invoice" onAction="#printInvoice"
+                        prefHeight="35.0" prefWidth="140.0"
+                        style="-fx-background-color: #2980B9; -fx-text-fill: white; -fx-background-radius: 5;"/>
+            </HBox>
+        </VBox>
+    </children>
+</AnchorPane>

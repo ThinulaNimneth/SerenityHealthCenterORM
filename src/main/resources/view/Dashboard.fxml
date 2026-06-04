@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="650.0" prefWidth="1100.0"
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="lk.ijse.serenityhealthcenter.controllers.DashboardController">
+    <children>
+        <BorderPane prefHeight="650.0" prefWidth="1100.0">
+            <!-- Sidebar -->
+            <left>
+                <VBox prefWidth="230.0" spacing="5.0"
+                      style="-fx-background-color: #2C3E50;">
+                    <padding><Insets topRightBottomLeft="15"/></padding>
+
+                    <!-- App Title -->
+                    <VBox alignment="CENTER" spacing="4.0">
+                        <padding><Insets bottom="20" top="10"/></padding>
+                        <Label text="SERENITY" textFill="WHITE" style="-fx-font-weight: bold; -fx-font-size: 20px;"/>
+                        <Label text="Health Center" textFill="#BDC3C7" style="-fx-font-size: 11px;"/>
+                    </VBox>
+
+                    <!-- User Info -->
+                    <VBox alignment="CENTER" spacing="2.0"
+                          style="-fx-background-color: #34495E; -fx-background-radius: 8;">
+                        <padding><Insets topRightBottomLeft="10"/></padding>
+                        <Label fx:id="lblUsername" text="Username" textFill="WHITE" style="-fx-font-weight: bold;"/>
+                        <Label fx:id="lblRole" text="ROLE" textFill="#3498DB" style="-fx-font-size: 11px;"/>
+                    </VBox>
+
+                    <!-- Nav Buttons -->
+                    <Button fx:id="btnPatient" text="   Patient Management" onAction="#handlePatient"
+                            prefWidth="200.0" prefHeight="38.0" alignment="CENTER_LEFT"
+                            style="-fx-background-color: transparent; -fx-text-fill: #BDC3C7; -fx-font-size: 13px;">
+                        <VBox.margin><Insets top="10"/></VBox.margin>
+                    </Button>
+                    <Button fx:id="btnTherapist" text="   Therapist Management" onAction="#handleTherapist"
+                            prefWidth="200.0" prefHeight="38.0" alignment="CENTER_LEFT"
+                            style="-fx-background-color: transparent; -fx-text-fill: #BDC3C7; -fx-font-size: 13px;"/>
+                    <Button fx:id="btnProgram" text="   Therapy Programs" onAction="#handleProgram"
+                            prefWidth="200.0" prefHeight="38.0" alignment="CENTER_LEFT"
+                            style="-fx-background-color: transparent; -fx-text-fill: #BDC3C7; -fx-font-size: 13px;"/>
+                    <Button fx:id="btnSession" text="   Session Scheduling" onAction="#handleSession"
+                            prefWidth="200.0" prefHeight="38.0" alignment="CENTER_LEFT"
+                            style="-fx-background-color: transparent; -fx-text-fill: #BDC3C7; -fx-font-size: 13px;"/>
+                    <Button fx:id="btnPayment" text="   Payment &amp; Invoice" onAction="#handlePayment"
+                            prefWidth="200.0" prefHeight="38.0" alignment="CENTER_LEFT"
+                            style="-fx-background-color: transparent; -fx-text-fill: #BDC3C7; -fx-font-size: 13px;"/>
+                    <Button fx:id="btnUser" text="   User Management" onAction="#handleUser"
+                            prefWidth="200.0" prefHeight="38.0" alignment="CENTER_LEFT"
+                            style="-fx-background-color: transparent; -fx-text-fill: #BDC3C7; -fx-font-size: 13px;"/>
+                    <Button fx:id="btnReport" text="   Reports &amp; Analytics" onAction="#handleReport"
+                            prefWidth="200.0" prefHeight="38.0" alignment="CENTER_LEFT"
+                            style="-fx-background-color: transparent; -fx-text-fill: #BDC3C7; -fx-font-size: 13px;"/>
+
+                    <VBox VBox.vgrow="ALWAYS"/>
+
+                    <Button fx:id="btnLogout" text="   Logout" onAction="#handleLogout"
+                            prefWidth="200.0" prefHeight="38.0" alignment="CENTER_LEFT"
+                            style="-fx-background-color: #E74C3C; -fx-text-fill: white; -fx-background-radius: 5; -fx-font-size: 13px;">
+                        <VBox.margin><Insets bottom="10"/></VBox.margin>
+                    </Button>
+                </VBox>
+            </left>
+
+            <!-- Main content -->
+            <center>
+                <VBox style="-fx-background-color: #F4F6F7;">
+                    <!-- Header -->
+                    <HBox alignment="CENTER_LEFT" prefHeight="60.0"
+                          style="-fx-background-color: white; -fx-border-color: #E8ECEF; -fx-border-width: 0 0 1 0;">
+                        <padding><Insets left="25" right="25"/></padding>
+                        <Label text="Serenity Mental Health Therapy Center"
+                               style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;"/>
+                    </HBox>
+
+                    <!-- Welcome area loaded by default -->
+                    <StackPane fx:id="contentArea" VBox.vgrow="ALWAYS">
+                        <VBox alignment="CENTER" spacing="20.0">
+                            <Label text="Welcome to the Management System"
+                                   style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;"/>
+                            <Label text="Select a module from the sidebar to get started."
+                                   style="-fx-text-fill: #7F8C8D; -fx-font-size: 14px;"/>
+                        </VBox>
+                    </StackPane>
+                </VBox>
+            </center>
+        </BorderPane>
+    </children>
+</AnchorPane>

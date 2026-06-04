@@ -1,21 +1,16 @@
 package lk.ijse.serenityhealthcenter.dao.custom;
 
+import lk.ijse.serenityhealthcenter.dao.CrudDAO;
 import lk.ijse.serenityhealthcenter.entity.Patient;
-
 import java.util.List;
 import java.util.Optional;
 
-public interface PatientDAO {
+public interface PatientDAO extends CrudDAO<Patient> {
+    Patient search(String id);
 
-    Long save(Patient patient);
-    void update(Patient patient);
-    void delete(Long id);
-    Optional<Patient> findById(Long id);
-    List<Patient> findAll();
-    Optional<Patient> findByEmail(String email);
-    List<Patient> searchByName(String name);
-    //all program patient enroll get
-    List<Patient> findPatientsEnrolledInAllPrograms();
-    // patient with enroll program
-    Optional<Patient> findPatientWithPrograms(Long patientId);
+    //patient enrolled in every program
+    List<Patient> getPatientsEnrolledInAllPrograms();
+
+    // fetch patients with their enrolled therapy programs
+    List<Object[]> getPatientsWithTherapyPrograms();
 }

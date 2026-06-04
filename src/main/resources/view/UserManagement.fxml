@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="600.0" prefWidth="860.0"
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="lk.ijse.serenityhealthcenter.controllers.UserManagementController">
+    <children>
+        <VBox spacing="15.0" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0"
+              AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+            <padding><Insets topRightBottomLeft="20"/></padding>
+
+            <Label text="User Management" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;"/>
+            <Separator/>
+
+            <GridPane hgap="20.0" vgap="10.0">
+                <columnConstraints>
+                    <ColumnConstraints minWidth="110.0"/>
+                    <ColumnConstraints minWidth="240.0"/>
+                    <ColumnConstraints minWidth="110.0"/>
+                    <ColumnConstraints minWidth="240.0"/>
+                </columnConstraints>
+
+                <Label text="User ID:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtUserId" promptText="Auto" prefHeight="35.0" editable="false"
+                           GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                <Label text="Username:" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                <TextField fx:id="txtUsername" promptText="Username (min 4 chars)" prefHeight="35.0"
+                           onKeyReleased="#usernameValidation"
+                           GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+
+                <Label text="Email:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtEmail" promptText="Email Address" prefHeight="35.0"
+                           onKeyReleased="#emailValidation"
+                           GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                <Label text="Password:" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+                <TextField fx:id="txtPassword" promptText="Password (min 6 chars)" prefHeight="35.0"
+                           onKeyReleased="#passwordValidation"
+                           GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+
+                <Label text="Role:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <ComboBox fx:id="cmbRole" promptText="Select Role" prefHeight="35.0" prefWidth="240.0"
+                          GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+            </GridPane>
+
+            <HBox spacing="10.0" alignment="CENTER_LEFT">
+                <Button fx:id="btnAdd" text="Add User" onAction="#addUser" prefHeight="35.0" prefWidth="120.0"
+                        style="-fx-background-color: #27AE60; -fx-text-fill: white; -fx-background-radius: 5;"/>
+                <Button fx:id="btnUpdate" text="Update" onAction="#updateUser" prefHeight="35.0" prefWidth="120.0"
+                        style="-fx-background-color: #2980B9; -fx-text-fill: white; -fx-background-radius: 5;"/>
+                <Button fx:id="btnDelete" text="Delete" onAction="#deleteUser" prefHeight="35.0" prefWidth="120.0"
+                        style="-fx-background-color: #E74C3C; -fx-text-fill: white; -fx-background-radius: 5;"/>
+                <Button fx:id="btnSearch" text="Search" onAction="#searchUser" prefHeight="35.0" prefWidth="120.0"
+                        style="-fx-background-color: #8E44AD; -fx-text-fill: white; -fx-background-radius: 5;"/>
+                <Hyperlink fx:id="lnkChangePassword" text="Change Password" onAction="#openChangePassword"
+                           style="-fx-font-size: 13px;"/>
+            </HBox>
+
+            <TableView fx:id="tblUsers" VBox.vgrow="ALWAYS" onMouseClicked="#onTableClicked">
+                <columns>
+                    <TableColumn fx:id="colId"       text="User ID"  prefWidth="80.0"/>
+                    <TableColumn fx:id="colUsername"  text="Username" prefWidth="200.0"/>
+                    <TableColumn fx:id="colEmail"     text="Email"    prefWidth="260.0"/>
+                    <TableColumn fx:id="colRole"      text="Role"     prefWidth="130.0"/>
+                </columns>
+            </TableView>
+        </VBox>
+    </children>
+</AnchorPane>

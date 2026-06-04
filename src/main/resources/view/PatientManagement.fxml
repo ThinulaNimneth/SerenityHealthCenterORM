@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="600.0" prefWidth="860.0"
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="lk.ijse.serenityhealthcenter.controllers.PatientManagementController">
+    <children>
+        <VBox spacing="15.0" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0"
+              AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+            <padding><Insets topRightBottomLeft="20"/></padding>
+
+            <Label text="Patient Management" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;"/>
+            <Separator/>
+
+            <GridPane hgap="20.0" vgap="10.0">
+                <columnConstraints>
+                    <ColumnConstraints minWidth="120.0"/>
+                    <ColumnConstraints minWidth="250.0"/>
+                    <ColumnConstraints minWidth="120.0"/>
+                    <ColumnConstraints minWidth="250.0"/>
+                </columnConstraints>
+
+                <Label text="Patient ID:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtPatientId" promptText="e.g. P001" prefHeight="35.0"
+                           GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                <Label text="Full Name:" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                <TextField fx:id="txtName" promptText="Full Name" prefHeight="35.0"
+                           GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+
+                <Label text="Email:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtEmail" promptText="example@email.com" prefHeight="35.0"
+                           onKeyReleased="#emailValidation"
+                           GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                <Label text="Address:" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+                <TextField fx:id="txtAddress" promptText="Address" prefHeight="35.0"
+                           GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+
+                <Label text="Tel:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtTel" promptText="07X-XXXXXXX" prefHeight="35.0"
+                           onKeyReleased="#telValidation"
+                           GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                <Label text="Reg. Date:" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
+                <DatePicker fx:id="dpRegDate" prefHeight="35.0"
+                            GridPane.rowIndex="2" GridPane.columnIndex="3"/>
+            </GridPane>
+
+            <HBox spacing="10.0">
+                <Button fx:id="btnAdd" text="Add Patient" onAction="#addPatient" prefHeight="35.0" prefWidth="130.0"
+                        style="-fx-background-color: #27AE60; -fx-text-fill: white; -fx-background-radius: 5;"/>
+                <Button fx:id="btnUpdate" text="Update" onAction="#updatePatient" prefHeight="35.0" prefWidth="130.0"
+                        style="-fx-background-color: #2980B9; -fx-text-fill: white; -fx-background-radius: 5;"/>
+                <Button fx:id="btnDelete" text="Delete" onAction="#deletePatient" prefHeight="35.0" prefWidth="130.0"
+                        style="-fx-background-color: #E74C3C; -fx-text-fill: white; -fx-background-radius: 5;"/>
+                <Button fx:id="btnSearch" text="Search" onAction="#searchPatient" prefHeight="35.0" prefWidth="130.0"
+                        style="-fx-background-color: #8E44AD; -fx-text-fill: white; -fx-background-radius: 5;"/>
+                <Button fx:id="btnPatientHistory" text="Patient History" onAction="#openPatientHistory"
+                        prefHeight="35.0" prefWidth="140.0"
+                        style="-fx-background-color: #E67E22; -fx-text-fill: white; -fx-background-radius: 5;"/>
+            </HBox>
+
+            <TableView fx:id="tblPatients" VBox.vgrow="ALWAYS" onMouseClicked="#onTableClicked">
+                <columns>
+                    <TableColumn fx:id="colId"      text="ID"               prefWidth="80.0"/>
+                    <TableColumn fx:id="colName"    text="Name"             prefWidth="160.0"/>
+                    <TableColumn fx:id="colEmail"   text="Email"            prefWidth="200.0"/>
+                    <TableColumn fx:id="colAddress" text="Address"          prefWidth="180.0"/>
+                    <TableColumn fx:id="colTel"     text="Tel"              prefWidth="120.0"/>
+                    <TableColumn fx:id="colDate"    text="Registration Date" prefWidth="140.0"/>
+                </columns>
+            </TableView>
+        </VBox>
+    </children>
+</AnchorPane>

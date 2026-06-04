@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="550.0" prefWidth="860.0"
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="lk.ijse.serenityhealthcenter.controllers.TherapyProgramController">
+    <children>
+        <VBox spacing="15.0" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0"
+              AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+            <padding><Insets topRightBottomLeft="20"/></padding>
+
+            <Label text="Therapy Program Management" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;"/>
+            <Separator/>
+
+            <GridPane hgap="20.0" vgap="10.0">
+                <columnConstraints>
+                    <ColumnConstraints minWidth="120.0"/>
+                    <ColumnConstraints minWidth="250.0"/>
+                    <ColumnConstraints minWidth="120.0"/>
+                    <ColumnConstraints minWidth="250.0"/>
+                </columnConstraints>
+
+                <Label text="Program ID:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtProgramId" promptText="e.g. MT1001" prefHeight="35.0"
+                           GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                <Label text="Program Name:" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                <TextField fx:id="txtName" promptText="Program Name" prefHeight="35.0"
+                           GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+
+                <Label text="Duration:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtDuration" promptText="e.g. 12 weeks" prefHeight="35.0"
+                           GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                <Label text="Fee (LKR):" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+                <TextField fx:id="txtFee" promptText="e.g. 80000.00" prefHeight="35.0"
+                           GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+            </GridPane>
+
+            <HBox spacing="10.0">
+                <Button fx:id="btnAdd" text="Add Program" onAction="#addProgram" prefHeight="35.0" prefWidth="140.0"
+                        style="-fx-background-color: #27AE60; -fx-text-fill: white; -fx-background-radius: 5;"/>
+                <Button fx:id="btnUpdate" text="Update" onAction="#updateProgram" prefHeight="35.0" prefWidth="130.0"
+                        style="-fx-background-color: #2980B9; -fx-text-fill: white; -fx-background-radius: 5;"/>
+                <Button fx:id="btnDelete" text="Delete" onAction="#deleteProgram" prefHeight="35.0" prefWidth="130.0"
+                        style="-fx-background-color: #E74C3C; -fx-text-fill: white; -fx-background-radius: 5;"/>
+            </HBox>
+
+            <TableView fx:id="tblPrograms" VBox.vgrow="ALWAYS" onMouseClicked="#onTableClicked">
+                <columns>
+                    <TableColumn fx:id="colId"       text="Program ID"    prefWidth="120.0"/>
+                    <TableColumn fx:id="colName"     text="Program Name"  prefWidth="250.0"/>
+                    <TableColumn fx:id="colDuration" text="Duration"      prefWidth="150.0"/>
+                    <TableColumn fx:id="colFee"      text="Fee (LKR)"     prefWidth="150.0"/>
+                </columns>
+            </TableView>
+        </VBox>
+    </children>
+</AnchorPane>

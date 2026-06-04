@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="450.0" prefWidth="700.0"
+            style="-fx-background-color: #ECF0F1;"
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="lk.ijse.serenityhealthcenter.controllers.RegistrationController">
+    <children>
+        <VBox alignment="CENTER" spacing="15.0"
+              AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0"
+              AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+            <padding><Insets topRightBottomLeft="40"/></padding>
+
+            <Label text="Register Admin" style="-fx-font-weight: bold; -fx-font-size: 28px;"/>
+            <Label text="Create the system administrator account" style="-fx-text-fill: #7F8C8D;"/>
+
+            <TextField fx:id="txtUsername" promptText="Username" prefHeight="40.0" prefWidth="320.0"
+                       style="-fx-background-radius: 5;"/>
+            <TextField fx:id="txtEmail" promptText="Email Address" prefHeight="40.0" prefWidth="320.0"
+                       style="-fx-background-radius: 5;"/>
+            <PasswordField fx:id="txtPassword" promptText="Password" prefHeight="40.0" prefWidth="320.0"
+                           style="-fx-background-radius: 5;"/>
+
+            <Button fx:id="btnRegister" text="Register" onAction="#registerOnAction"
+                    prefHeight="40.0" prefWidth="320.0"
+                    style="-fx-background-color: #27AE60; -fx-text-fill: white; -fx-background-radius: 5; -fx-font-size: 14px;"/>
+
+            <Button fx:id="btnBack" text="Back to Login" onAction="#backOnAction"
+                    prefHeight="35.0" prefWidth="320.0"
+                    style="-fx-background-color: #95A5A6; -fx-text-fill: white; -fx-background-radius: 5;"/>
+        </VBox>
+    </children>
+</AnchorPane>

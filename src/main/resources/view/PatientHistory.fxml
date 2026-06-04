@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="580.0" prefWidth="860.0"
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="lk.ijse.serenityhealthcenter.controllers.PatientHistoryController">
+    <children>
+        <VBox spacing="15.0" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0"
+              AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+            <padding><Insets topRightBottomLeft="20"/></padding>
+
+            <HBox alignment="CENTER_LEFT" spacing="15.0">
+                <Label text="Patient History" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;"/>
+                <HBox HBox.hgrow="ALWAYS"/>
+                <ComboBox fx:id="cmbPatientId" promptText="Select Patient ID" prefHeight="35.0" prefWidth="200.0"/>
+                <Button fx:id="btnSearch" text="Search" onAction="#searchPatient" prefHeight="35.0" prefWidth="100.0"
+                        style="-fx-background-color: #2980B9; -fx-text-fill: white; -fx-background-radius: 5;"/>
+            </HBox>
+            <Separator/>
+
+            <!-- Patient Details card -->
+            <GridPane hgap="20.0" vgap="8.0"
+                      style="-fx-background-color: #F7F9FC; -fx-border-color: #DDE3EC; -fx-border-radius: 5; -fx-background-radius: 5;">
+                <padding><Insets topRightBottomLeft="12"/></padding>
+                <columnConstraints>
+                    <ColumnConstraints minWidth="100.0"/>
+                    <ColumnConstraints minWidth="200.0"/>
+                    <ColumnConstraints minWidth="100.0"/>
+                    <ColumnConstraints minWidth="200.0"/>
+                </columnConstraints>
+
+                <Label text="Name:" style="-fx-font-weight: bold;" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <Label fx:id="lblName" text="--" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                <Label text="Contact:" style="-fx-font-weight: bold;" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                <Label fx:id="lblContact" text="--" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+
+                <Label text="Email:" style="-fx-font-weight: bold;" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <Label fx:id="lblEmail" text="--" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                <Label text="Address:" style="-fx-font-weight: bold;" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+                <Label fx:id="lblAddress" text="--" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+
+                <Label text="Reg. Date:" style="-fx-font-weight: bold;" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <Label fx:id="lblRegDate" text="--" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+            </GridPane>
+
+            <Label text="Enrolled Therapy Programs" style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #2980B9;"/>
+
+            <TableView fx:id="tblHistory" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="colProgramId"   text="Program ID"        prefWidth="110.0"/>
+                    <TableColumn fx:id="colProgramName" text="Program Name"       prefWidth="180.0"/>
+                    <TableColumn fx:id="colTherapist"   text="Therapist"          prefWidth="140.0"/>
+                    <TableColumn fx:id="colFee"         text="Fee (LKR)"          prefWidth="110.0"/>
+                    <TableColumn fx:id="colRemaining"   text="Remaining (LKR)"    prefWidth="130.0"/>
+                    <TableColumn fx:id="colDate"        text="Session Date"       prefWidth="130.0"/>
+                </columns>
+            </TableView>
+        </VBox>
+    </children>
+</AnchorPane>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="600.0" prefWidth="860.0"
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="lk.ijse.serenityhealthcenter.controllers.TherapistManagementController">
+    <children>
+        <VBox spacing="15.0" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0"
+              AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+            <padding><Insets topRightBottomLeft="20"/></padding>
+
+            <Label text="Therapist Management" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;"/>
+            <Separator/>
+
+            <GridPane hgap="20.0" vgap="10.0">
+                <columnConstraints>
+                    <ColumnConstraints minWidth="130.0"/>
+                    <ColumnConstraints minWidth="250.0"/>
+                    <ColumnConstraints minWidth="130.0"/>
+                    <ColumnConstraints minWidth="250.0"/>
+                </columnConstraints>
+
+                <Label text="Therapist ID:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtTherapistId" promptText="e.g. T001" prefHeight="35.0"
+                           GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                <Label text="Full Name:" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                <TextField fx:id="txtName" promptText="Full Name" prefHeight="35.0"
+                           GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+
+                <Label text="Specialization:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtSpecialization" promptText="Specialization" prefHeight="35.0"
+                           GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                <Label text="Contact No:" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+                <TextField fx:id="txtContact" promptText="07X-XXXXXXX" prefHeight="35.0"
+                           onKeyReleased="#contactValidation"
+                           GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+
+                <Label text="Assign Program:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <ComboBox fx:id="cmbProgram" promptText="Select Program (optional)"
+                          prefHeight="35.0" prefWidth="250.0"
+                          GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+            </GridPane>
+
+            <HBox spacing="10.0">
+                <Button fx:id="btnAdd" text="Add Therapist" onAction="#addTherapist" prefHeight="35.0" prefWidth="140.0"
+                        style="-fx-background-color: #27AE60; -fx-text-fill: white; -fx-background-radius: 5;"/>
+                <Button fx:id="btnUpdate" text="Update" onAction="#updateTherapist" prefHeight="35.0" prefWidth="130.0"
+                        style="-fx-background-color: #2980B9; -fx-text-fill: white; -fx-background-radius: 5;"/>
+                <Button fx:id="btnDelete" text="Delete" onAction="#deleteTherapist" prefHeight="35.0" prefWidth="130.0"
+                        style="-fx-background-color: #E74C3C; -fx-text-fill: white; -fx-background-radius: 5;"/>
+                <Button fx:id="btnSearch" text="Search" onAction="#searchTherapist" prefHeight="35.0" prefWidth="130.0"
+                        style="-fx-background-color: #8E44AD; -fx-text-fill: white; -fx-background-radius: 5;"/>
+            </HBox>
+
+            <TableView fx:id="tblTherapists" VBox.vgrow="ALWAYS" onMouseClicked="#onTableClicked">
+                <columns>
+                    <TableColumn fx:id="colId"      text="ID"            prefWidth="90.0"/>
+                    <TableColumn fx:id="colName"    text="Name"          prefWidth="180.0"/>
+                    <TableColumn fx:id="colSpec"    text="Specialization" prefWidth="180.0"/>
+                    <TableColumn fx:id="colContact" text="Contact"       prefWidth="140.0"/>
+                    <TableColumn fx:id="colStatus"  text="Status"        prefWidth="120.0"/>
+                </columns>
+            </TableView>
+        </VBox>
+    </children>
+</AnchorPane>

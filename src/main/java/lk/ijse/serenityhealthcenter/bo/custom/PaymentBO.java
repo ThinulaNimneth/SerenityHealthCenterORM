@@ -1,14 +1,11 @@
 package lk.ijse.serenityhealthcenter.bo.custom;
 
-import lk.ijse.serenityhealthcenter.dto.PaymentDTO;
+import lk.ijse.serenityhealthcenter.bo.SuperBO;
+import lk.ijse.serenityhealthcenter.dto.PaymentDto;
 
 import java.util.List;
 
-public interface PaymentBO {
-    Long savePayment(PaymentDTO paymentDTO);
-    void updatePayment(PaymentDTO paymentDTO);
-    void deletePayment(Long id);
-    PaymentDTO getPayment(Long id);
-    List<PaymentDTO> getAllPayments();
-    List<PaymentDTO> getPaymentsByPatient(Long patientId);
+public interface PaymentBO extends SuperBO {
+    PaymentDto searchPayment(String sessionId);
+    boolean pay(String paymentId, String payingAmount);
 }

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="500.0" prefWidth="860.0"
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="lk.ijse.serenityhealthcenter.controllers.PaymentController">
+    <children>
+        <VBox spacing="15.0" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0"
+              AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+            <padding><Insets topRightBottomLeft="20"/></padding>
+
+            <Label text="Payment &amp; Invoice Management" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;"/>
+            <Separator/>
+
+            <GridPane hgap="20.0" vgap="10.0">
+                <columnConstraints>
+                    <ColumnConstraints minWidth="130.0"/>
+                    <ColumnConstraints minWidth="250.0"/>
+                    <ColumnConstraints minWidth="130.0"/>
+                    <ColumnConstraints minWidth="250.0"/>
+                </columnConstraints>
+
+                <Label text="Select Patient:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <ComboBox fx:id="cmbPatient" promptText="Select Patient" prefHeight="35.0" prefWidth="250.0"
+                          onAction="#onPatientSelected"
+                          GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                <Label text="Select Program:" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                <ComboBox fx:id="cmbProgram" promptText="Select Program" prefHeight="35.0" prefWidth="250.0"
+                          onAction="#onProgramSelected"
+                          GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+
+                <Label text="Payment ID:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtPaymentId" prefHeight="35.0" editable="false"
+                           GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                <Label text="Program Name:" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+                <TextField fx:id="txtProgramName" prefHeight="35.0" editable="false"
+                           GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+
+                <Label text="Program Fee:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtProgramFee" prefHeight="35.0" editable="false"
+                           GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                <Label text="Remaining Amount:" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
+                <TextField fx:id="txtRemainingAmount" prefHeight="35.0" editable="false"
+                           GridPane.rowIndex="2" GridPane.columnIndex="3"/>
+
+                <Label text="Amount to Pay:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtPayingAmount" promptText="Enter Amount (LKR)" prefHeight="35.0"
+                           GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                <Label text="Pay Date:" GridPane.rowIndex="3" GridPane.columnIndex="2"/>
+                <DatePicker fx:id="dpPayDate" prefHeight="35.0"
+                            GridPane.rowIndex="3" GridPane.columnIndex="3"/>
+            </GridPane>
+
+            <HBox spacing="10.0">
+                <Button fx:id="btnPay" text="Process Payment" onAction="#payAction" prefHeight="35.0" prefWidth="160.0"
+                        style="-fx-background-color: #27AE60; -fx-text-fill: white; -fx-background-radius: 5;"/>
+                <Button fx:id="btnClear" text="Clear" onAction="#clearAction" prefHeight="35.0" prefWidth="130.0"
+                        style="-fx-background-color: #95A5A6; -fx-text-fill: white; -fx-background-radius: 5;"/>
+            </HBox>
+        </VBox>
+    </children>
+</AnchorPane>

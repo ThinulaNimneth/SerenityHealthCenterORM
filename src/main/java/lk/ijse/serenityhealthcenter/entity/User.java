@@ -4,40 +4,24 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "users")
-@Getter
-@Setter
+@Table(name = "user")
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
-
+@Getter
+@Setter
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
-    private Long userId;
-
-    @Column(nullable = false, unique = true, length = 50)
+    private long id;
     private String username;
-
-    @Column(nullable = false)
-    private String password; // BCrypt password
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 20)
-    private UserRole role;
-
-    @Column(nullable = false, unique = true, length = 100)
     private String email;
+    private String password;
+    private String role;
 
-    @Column(name = "full_name", nullable = false, length = 100)
-    private String fullName;
-
-    @Column(name = "is_active")
-    private Boolean isActive = true;
-
-    public enum UserRole {
-        ADMIN,
-        RECEPTIONIST
+    public User(String username, String email, String password, String role) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.role = role;
     }
 }
